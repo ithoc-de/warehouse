@@ -1,0 +1,19 @@
+<html xmlns:form="http://www.w3.org/1999/xhtml">
+<head>
+</head>
+<body>
+<h3 th:text="${warehouse.name}" />
+
+<form action="#" th:action="@{/selectStock}" th:object="${warehouse}" method="post">
+    <table>
+        <tr th:each="stock: ${warehouse.stocks}">
+            <td th:text="${stock.productNumber}" />
+            <input type="submit" value="Ändern" th:formaction="@{'/showStock?stockNumber='+${stock.productNumber}}" >
+            <td th:text="${stock.productName}" />
+            <td th:text="${stock.quantity}" />
+        </tr>
+    </table>
+</form>
+
+</body>
+</html>
