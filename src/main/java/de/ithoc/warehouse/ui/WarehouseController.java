@@ -1,41 +1,29 @@
 package de.ithoc.warehouse.ui;
 
-import de.ithoc.warehouse.persistence.Stock;
-import de.ithoc.warehouse.persistence.StockRepository;
-import de.ithoc.warehouse.persistence.Warehouse;
-import de.ithoc.warehouse.persistence.WarehouseRepository;
+import de.ithoc.warehouse.domain.Stock;
+import de.ithoc.warehouse.domain.Warehouse;
+import de.ithoc.warehouse.domain.WarehouseService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class WarehouseController {
 
-    private final WarehouseRepository warehouseRepository;
-    private final StockRepository stockRepository;
+    private final WarehouseService warehouseService;
 
-    public WarehouseController(WarehouseRepository warehouseRepository, StockRepository stockRepository) {
-        this.warehouseRepository = warehouseRepository;
-        this.stockRepository = stockRepository;
+    public WarehouseController(WarehouseService warehouseService) {
+        this.warehouseService = warehouseService;
     }
 
     @GetMapping({"/", "/warehouse"})
     public String warehouse(@ModelAttribute Warehouse warehouse) {
 
-        Warehouse w = warehouseRepository.findAll().get(0);
-        warehouse.setName(w.getName());
-        warehouse.setStocks(w.getStocks());
 
         return "warehouse";
     }
 
     @PostMapping("/showStock")
-    public String showStock(@RequestParam String stockNumber, @ModelAttribute StockModel stockModel) {
-
-        Stock s = stockRepository.findByProductNumber(stockNumber).orElseThrow();
-
-        stockModel.setQuantity(s.getQuantity());
-        stockModel.setProductNumber(s.getProductNumber() + "");
-        stockModel.setProductName(s.getProductName());
+    public String showStock(@RequestParam String stockNumber, @ModelAttribute Stock stock) {
 
         return "stock";
     }

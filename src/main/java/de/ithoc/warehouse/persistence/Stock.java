@@ -17,11 +17,11 @@ public class Stock {
     @Column(nullable = false)
     private Long id;
 
-    private Long productNumber;
+    private String productNumber;
     private String productName;
     private Long quantity;
 
-    public Stock(Long productNumber, String productName, Long quantity) {
+    public Stock(String productNumber, String productName, Long quantity) {
         this.productNumber = productNumber;
         this.productName = productName;
         this.quantity = quantity;

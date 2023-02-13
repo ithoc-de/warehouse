@@ -6,7 +6,7 @@
 
 <form action="#" th:action="@{/selectStock}" th:object="${warehouse}" method="post">
     <table>
-        <tr th:each="stock: ${warehouse.stocks}">
+        <tr th:each="stock: ${warehouse.stockEntities}">
             <td th:text="${stock.productNumber}" />
             <input type="submit" value="Ändern" th:formaction="@{'/showStock?stockNumber='+${stock.productNumber}}" >
             <td th:text="${stock.productName}" />

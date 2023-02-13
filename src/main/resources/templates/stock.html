@@ -4,12 +4,12 @@
 <body>
 <h3 >Mengen</h3>
 
-<form action="#" th:action="@{/updateStock}" th:object="${stockModel}" method="post">
+<form action="#" th:action="@{/updateStock}" th:object="${stock}" method="post">
     <table>
         <tr>
-            <td th:text="${stockModel.productNumber}" />
-            <td th:text="${stockModel.productName}" />
-            <td th:text="${stockModel.quantity}" />
+            <td th:text="${stock.productNumber}" />
+            <td th:text="${stock.productName}" />
+            <td th:text="${stock.quantity}" />
         </tr>
     </table>
 </form>

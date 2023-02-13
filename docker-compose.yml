@@ -1,0 +1,20 @@
+version: '3.8'
+services:
+  db:
+    image: mariadb:10.9.5
+    ports:
+      - "3306:3306"
+    environment:
+      MARIADB_ROOT_PASSWORD: dev
+    volumes:
+      - ./data:/var/lib/mysql
+    networks:
+      - solution4europe
+  warehouse:
+    build: .
+    ports:
+      - "7001:7001"
+    environment:
+      HOST: solution4europe
+networks:
+  solution4europe:

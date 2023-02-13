@@ -28,7 +28,7 @@ public class Application {
     @PostConstruct
     public void init() {
 
-        Stock stock = new Stock(1308L, "Lagerland", 71L);
+        Stock stock = new Stock("1308", "Lagerland", 71L);
         stockRepository.save(stock);
 
         Warehouse warehouse = new Warehouse("Lagerland", List.of(stock));
