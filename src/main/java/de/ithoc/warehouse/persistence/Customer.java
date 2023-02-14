@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -15,7 +17,17 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String firstName;
+    private String lastName;
+
+    @OneToMany
+    private List<Warehouse> warehouses;
+
     private String customerId;
-    private String costumerNumber;
+
+    @Column(unique = true)
+    private String customerNumber;
+
+    private String emailAddress;
 
 }
