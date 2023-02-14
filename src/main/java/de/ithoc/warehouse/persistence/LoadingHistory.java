@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Getter
 @Setter
@@ -16,7 +18,7 @@ public class LoadingHistory {
     private Long id;
 
     @Column(unique = true)
-    private String timestamp;
+    private LocalDateTime timestamp;
 
     @ManyToOne
     private Shop shop;
