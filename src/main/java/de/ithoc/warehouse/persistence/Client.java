@@ -14,18 +14,16 @@ import java.util.List;
 public class Client {
 
     @Id
-    @Column(nullable = false, unique = true)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
+    @Column(unique = true, nullable = false)
     private String name;
-
-    @OneToOne
-    private Shop shop;
 
     @OneToMany
     private List<Customer> customers;
 
-    @OneToOne
-    private Warehouse warehouse;
+    @OneToMany
+    private List<Warehouse> warehouses;
 
 }

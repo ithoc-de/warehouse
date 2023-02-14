@@ -1,13 +1,16 @@
 package de.ithoc.warehouse.external.epages;
 
+import de.ithoc.warehouse.persistence.ShopRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 
 @Configuration
+@EnableScheduling
 public class EpagesConfig {
 
     @Value("${epages.api.url}")

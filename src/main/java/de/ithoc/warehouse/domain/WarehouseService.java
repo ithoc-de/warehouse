@@ -5,6 +5,8 @@ import de.ithoc.warehouse.persistence.ClientRepository;
 import de.ithoc.warehouse.persistence.Warehouse;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class WarehouseService {
 
@@ -17,12 +19,11 @@ public class WarehouseService {
     }
 
 
-    public de.ithoc.warehouse.domain.Warehouse readWarehouse(String clientId) {
+    public List<de.ithoc.warehouse.domain.Warehouse> readWarehouses(de.ithoc.warehouse.domain.Client client) {
+        Client clientEntity = clientRepository.findByName(client.getName());
+        List<Warehouse> warehouseEntities = clientEntity.getWarehouses();
 
-        Client client = clientRepository.findById(clientId).orElseThrow();
-        Warehouse warehouse = client.getWarehouse();
-
-        return warehouseMapper.toWarehouseModel(warehouse);
+        return warehouseMapper.toWarehouseModels(warehouseEntities);
     }
 
 }

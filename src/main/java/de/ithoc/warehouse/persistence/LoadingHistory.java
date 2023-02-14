@@ -9,13 +9,16 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Shop {
+public class LoadingHistory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(unique = true)
-    private String name;
+    private String timestamp;
+
+    @ManyToOne
+    private Shop shop;
 
 }

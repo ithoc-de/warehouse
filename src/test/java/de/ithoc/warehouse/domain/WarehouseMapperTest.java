@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class WarehouseMapperTest {
 
     @Test
-    public void mapFromWarehouseEntityToWarehouseModel() {
+    public void fromEntityToModel() {
         List<Stock> stockEntities = new ArrayList<>();
         for(int i = 0; i < 2; i++) {
             stockEntities.add(getStockEntity((i + 1), UUID.randomUUID().toString(), (i * 2)));
