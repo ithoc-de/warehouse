@@ -16,14 +16,12 @@ import java.util.Optional;
 @Slf4j
 public class OrdersService {
 
-    private final Shop shop;
     private final OrdersLoader ordersLoader;
 
     private final LoadingHistoryRepository loadingHistoryRepository;
     private final CustomerRepository customerRepository;
 
-    public OrdersService(Shop shop, OrdersLoader ordersLoader, LoadingHistoryRepository loadingHistoryRepository, CustomerRepository customerRepository) {
-        this.shop = shop;
+    public OrdersService(OrdersLoader ordersLoader, LoadingHistoryRepository loadingHistoryRepository, CustomerRepository customerRepository) {
         this.ordersLoader = ordersLoader;
         this.loadingHistoryRepository = loadingHistoryRepository;
         this.customerRepository = customerRepository;
@@ -32,7 +30,7 @@ public class OrdersService {
     private void saveLoadingHistory(LocalDateTime dateTime) {
         LoadingHistory loadingHistory = new LoadingHistory();
         loadingHistory.setTimestamp(dateTime);
-        loadingHistory.setShop(shop);
+// TODO OHO        loadingHistory.setShop(shop);
         loadingHistoryRepository.save(loadingHistory);
     }
 
@@ -69,9 +67,15 @@ public class OrdersService {
             return loadingHistory;
         }).getTimestamp();
 
+        /*
+         * Actually get the orders from last check date and time from ePages.
+         */
         List<Item> filteredItems = ordersLoader.loadItems(updateFromUtcDateTime);
         log.debug("filteredItems: {}", filteredItems);
 
+        /*
+         * Synchronize ePage customers and this warehouse.
+         */
         filteredItems.forEach(item -> {
             String customerNumber = item.getCustomerNumber();
             customerRepository.findByCustomerNumber(customerNumber).orElseGet(() -> {
@@ -85,6 +89,8 @@ public class OrdersService {
                 return newCustomer;
             });
         });
+
+
     }
 
 }
