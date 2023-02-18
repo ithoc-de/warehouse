@@ -1,6 +1,6 @@
 package de.ithoc.warehouse.persistence;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,10 +17,6 @@ public class LoadingHistory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
     private LocalDateTime timestamp;
-
-    @ManyToOne
-    private Shop shop;
 
 }
