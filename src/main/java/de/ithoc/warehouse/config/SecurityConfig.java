@@ -1,6 +1,5 @@
 package de.ithoc.warehouse.config;
 
-import org.keycloak.adapters.springboot.KeycloakSpringBootConfigResolver;
 import org.keycloak.adapters.springsecurity.KeycloakConfiguration;
 import org.keycloak.adapters.springsecurity.authentication.KeycloakAuthenticationProvider;
 import org.keycloak.adapters.springsecurity.config.KeycloakWebSecurityConfigurerAdapter;
@@ -36,8 +35,9 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
         super.configure(httpSecurity);
 
         httpSecurity.authorizeHttpRequests()
+                .antMatchers("/").permitAll()
                 .antMatchers("/warehouse").authenticated()
-                .anyRequest().permitAll();
+                ;
     }
 
 }

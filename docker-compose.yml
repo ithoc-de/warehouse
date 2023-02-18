@@ -1,20 +1,52 @@
-version: '3.8'
+version: '3.3'
 services:
-  db:
-    image: mariadb:10.9.5
+  postgres:
+    image: postgres:15.2
+    container_name: postgres
     ports:
-      - "3306:3306"
+      - "5432:5432"
     environment:
-      MARIADB_ROOT_PASSWORD: dev
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: dev
     volumes:
-      - ./data:/var/lib/mysql
+      - postgres:/var/lib/postgresql/data
     networks:
       - solution4europe
-  warehouse:
+  keycloak:
+    image: quay.io/keycloak/keycloak:19.0.3
+    depends_on:
+      - postgres
+    container_name: keycloak
+    ports:
+      - "7002:8080"
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_DB: postgres
+      KC_DB_USERNAME: postgres
+      KC_DB_PASSWORD: dev
+      KC_DB_URL_HOST: postgres
+      KC_DB_URL_PORT: 5432
+      KC_DB_URL_DATABASE: keycloak
+      KC_DB_SCHEMA: public
+    command:
+      - start-dev
+    networks:
+      - solution4europe
+  application:
     build: .
+    depends_on:
+      - postgres
+    container_name: warehouse
     ports:
       - "7001:7001"
     environment:
-      HOST: solution4europe
+      DB_HOST: postgres
+      DB_PORT: 3306
+    networks:
+      - solution4europe
 networks:
   solution4europe:
+volumes:
+  postgres:
+    driver: local
