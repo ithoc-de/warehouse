@@ -35,8 +35,6 @@ public class WarehouseMapperTest {
 
         Stock stock = new Stock();
         stock.setQuantity(quantity);
-        stock.setProductName(name);
-        stock.setProductNumber("" + number);
 
         return stock;
     }

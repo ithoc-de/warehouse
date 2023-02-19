@@ -1,8 +1,8 @@
 package de.ithoc.warehouse.external.epages;
 
 import de.ithoc.warehouse.external.RestClient;
-import de.ithoc.warehouse.external.schema.orders.Item;
-import de.ithoc.warehouse.external.schema.orders.Orders;
+import de.ithoc.warehouse.external.epages.schema.orders.Item;
+import de.ithoc.warehouse.external.epages.schema.orders.Orders;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 

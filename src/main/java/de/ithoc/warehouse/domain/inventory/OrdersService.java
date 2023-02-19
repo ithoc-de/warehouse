@@ -1,7 +1,7 @@
 package de.ithoc.warehouse.domain.inventory;
 
 import de.ithoc.warehouse.external.epages.OrdersLoader;
-import de.ithoc.warehouse.external.schema.orders.Item;
+import de.ithoc.warehouse.external.epages.schema.orders.Item;
 import de.ithoc.warehouse.persistence.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -19,12 +19,10 @@ public class OrdersService {
     private final OrdersLoader ordersLoader;
 
     private final LoadingHistoryRepository loadingHistoryRepository;
-    private final CustomerRepository customerRepository;
 
-    public OrdersService(OrdersLoader ordersLoader, LoadingHistoryRepository loadingHistoryRepository, CustomerRepository customerRepository) {
+    public OrdersService(OrdersLoader ordersLoader, LoadingHistoryRepository loadingHistoryRepository) {
         this.ordersLoader = ordersLoader;
         this.loadingHistoryRepository = loadingHistoryRepository;
-        this.customerRepository = customerRepository;
     }
 
     private void saveLoadingHistory(LocalDateTime dateTime) {
@@ -42,7 +40,7 @@ public class OrdersService {
         return formattedDateTime;
     }
 
-    @Scheduled(fixedDelay = (24 * 60 * 1000))
+// TODO OHO Enable scheduler    @Scheduled(fixedDelay = (24 * 60 * 1000))
     public void updateInventory() {
         log.trace(new Exception().getStackTrace()[0].getMethodName());
 
@@ -76,6 +74,7 @@ public class OrdersService {
         /*
          * Synchronize ePage customers and this warehouse.
          */
+        /* TODO OHO Remove this snippet when verified not needed anymore
         filteredItems.forEach(item -> {
             String customerNumber = item.getCustomerNumber();
             customerRepository.findByCustomerNumber(customerNumber).orElseGet(() -> {
@@ -89,8 +88,7 @@ public class OrdersService {
                 return newCustomer;
             });
         });
-
-
+         */
     }
 
 }

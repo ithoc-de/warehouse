@@ -2,9 +2,8 @@ package de.ithoc.warehouse.external.epages;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.ithoc.warehouse.external.RestClient;
-import de.ithoc.warehouse.external.schema.orders.Item;
-import de.ithoc.warehouse.external.schema.orders.Orders;
-import de.ithoc.warehouse.persistence.CustomerRepository;
+import de.ithoc.warehouse.external.epages.schema.orders.Item;
+import de.ithoc.warehouse.external.epages.schema.orders.Orders;
 import de.ithoc.warehouse.persistence.LoadingHistoryRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -32,9 +31,6 @@ public class OrdersLoaderTest {
 
     @Mock
     private LoadingHistoryRepository loadingHistoryRepository;
-
-    @Mock
-    private CustomerRepository customerRepository;
 
     @Mock
     private RestClient restClient;

@@ -1,6 +1,6 @@
 package de.ithoc.warehouse.external;
 
-import de.ithoc.warehouse.external.schema.customers.Customers;
+import de.ithoc.warehouse.external.epages.schema.customers.Customers;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
