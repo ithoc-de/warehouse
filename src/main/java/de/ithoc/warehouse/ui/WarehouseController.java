@@ -3,15 +3,18 @@ package de.ithoc.warehouse.ui;
 import de.ithoc.warehouse.domain.Stock;
 import de.ithoc.warehouse.domain.Warehouse;
 import de.ithoc.warehouse.domain.WarehouseService;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-
-import java.security.Principal;
 
 @Controller
+@Slf4j
 public class WarehouseController {
 
     private final WarehouseService warehouseService;
@@ -26,7 +29,7 @@ public class WarehouseController {
     }
 
     @GetMapping(path = "/warehouse")
-    public String warehouse(KeycloakAuthenticationToken authentication, @ModelAttribute Warehouse warehouse) {
+    public String warehouse(@ModelAttribute Warehouse warehouse) {
 
         // TODO Implement this controller
         warehouse.setName("My Warehouse");
@@ -34,8 +37,8 @@ public class WarehouseController {
         return "warehouse";
     }
 
-    @PostMapping(path = "/showStock")
-    public String showStock(@RequestParam String stockNumber, @ModelAttribute Stock stock) {
+    @PostMapping(path = "/stocks")
+    public String stocks(@RequestParam String stockNumber, @ModelAttribute Stock stock) {
 
         return "stock";
     }

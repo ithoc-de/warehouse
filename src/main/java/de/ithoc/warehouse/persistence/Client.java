@@ -7,6 +7,9 @@ import lombok.Setter;
 
 import java.util.List;
 
+/**
+ * This Client class represents multi-client capability.
+ */
 @Entity
 @Getter
 @Setter
@@ -19,9 +22,6 @@ public class Client {
 
     @Column(unique = true, nullable = false)
     private String name;
-
-    @OneToMany
-    private List<Customer> customers;
 
     @OneToMany
     private List<Warehouse> warehouses;

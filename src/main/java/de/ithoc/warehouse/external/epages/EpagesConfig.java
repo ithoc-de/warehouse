@@ -1,6 +1,5 @@
 package de.ithoc.warehouse.external.epages;
 
-import de.ithoc.warehouse.persistence.ShopRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
