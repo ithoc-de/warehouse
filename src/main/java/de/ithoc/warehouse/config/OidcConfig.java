@@ -11,13 +11,19 @@ import org.springframework.security.web.authentication.session.SessionAuthentica
 @EnableWebSecurity
 public class OidcConfig {
 
+    private final KeycloakLogoutHandler keycloakLogoutHandler;
+
+    public OidcConfig(KeycloakLogoutHandler keycloakLogoutHandler) {
+        this.keycloakLogoutHandler = keycloakLogoutHandler;
+    }
+
     @Bean
     protected SessionAuthenticationStrategy sessionAuthenticationStrategy() {
         return new RegisterSessionAuthenticationStrategy(new SessionRegistryImpl());
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
 
         httpSecurity.authorizeRequests()
                 .antMatchers("/").permitAll()
@@ -27,6 +33,12 @@ public class OidcConfig {
                 .anyRequest().authenticated();
 
         httpSecurity.oauth2Login();
+
+        httpSecurity.oauth2Login()
+                .and()
+                .logout()
+                .addLogoutHandler(keycloakLogoutHandler)
+                .logoutSuccessUrl("/");
 
         return httpSecurity.build();
     }
