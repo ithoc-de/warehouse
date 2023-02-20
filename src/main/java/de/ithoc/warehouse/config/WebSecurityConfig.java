@@ -29,7 +29,8 @@ public class WebSecurityConfig {
                 .antMatchers("/").permitAll()
                 .antMatchers("/warehouse/*").hasRole("USER")
                 .antMatchers("/userinfo").hasRole("ADMIN")
-                .antMatchers("/users").hasRole(("USER"))
+                .antMatchers("/users").hasRole("USER")
+                .antMatchers("/sync-orders").hasRole("USER")
                 .anyRequest().authenticated();
 
         httpSecurity.oauth2Login();

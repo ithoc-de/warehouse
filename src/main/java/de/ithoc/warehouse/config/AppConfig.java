@@ -1,6 +1,6 @@
 package de.ithoc.warehouse.config;
 
-import de.ithoc.warehouse.domain.WarehouseMapper;
+import de.ithoc.warehouse.domain.model.WarehouseMapper;
 import org.mapstruct.factory.Mappers;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

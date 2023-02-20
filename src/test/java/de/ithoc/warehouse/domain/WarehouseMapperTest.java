@@ -1,5 +1,6 @@
 package de.ithoc.warehouse.domain;
 
+import de.ithoc.warehouse.domain.model.WarehouseMapper;
 import de.ithoc.warehouse.persistence.Stock;
 import de.ithoc.warehouse.persistence.Warehouse;
 import org.junit.jupiter.api.Test;
@@ -24,7 +25,7 @@ public class WarehouseMapperTest {
         warehouseEntity.setStocks(stockEntities);
 
         WarehouseMapper mapper = Mappers.getMapper(WarehouseMapper.class);
-        de.ithoc.warehouse.domain.Warehouse warehouse = mapper.toWarehouseModel(warehouseEntity);
+        de.ithoc.warehouse.domain.model.Warehouse warehouse = mapper.toWarehouseModel(warehouseEntity);
 
         assertEquals("My Warehouse", warehouse.getName());
         assertEquals(2, warehouse.getStocks().size());

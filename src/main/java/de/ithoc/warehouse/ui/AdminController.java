@@ -1,5 +1,6 @@
 package de.ithoc.warehouse.ui;
 
+import de.ithoc.warehouse.domain.synchronization.SyncService;
 import de.ithoc.warehouse.external.authprovider.OidcAdminClient;
 import de.ithoc.warehouse.external.authprovider.schema.token.Token;
 import de.ithoc.warehouse.external.authprovider.schema.users.User;
@@ -19,9 +20,11 @@ import java.util.Map;
 public class AdminController {
 
     private final OidcAdminClient oidcAdminClient;
+    private final SyncService syncService;
 
-    public AdminController(OidcAdminClient oidcAdminClient) {
+    public AdminController(OidcAdminClient oidcAdminClient, SyncService syncService) {
         this.oidcAdminClient = oidcAdminClient;
+        this.syncService = syncService;
     }
 
 
@@ -34,7 +37,7 @@ public class AdminController {
         model.addAttribute("name", claims.get("name"));
         model.addAttribute("email", claims.get("email"));
 
-        return "userinfo";
+        return "admin/userinfo";
     }
 
     @GetMapping(path = "/users")
@@ -46,7 +49,17 @@ public class AdminController {
         List<User> users = oidcAdminClient.getUsers(token);
         model.addAttribute("users", users);
 
-        return "users";
+        return "admin/users";
+    }
+
+
+    @GetMapping(path = "/sync-orders")
+    public String syncOrders(Model model) {
+
+        syncService.syncOrdersAndCustomers();
+        model.addAttribute("status", "Orders and customer have been synchronized.");
+
+        return "admin/sync-orders";
     }
 
 }

@@ -1,7 +1,7 @@
 package de.ithoc.warehouse.ui;
 
-import de.ithoc.warehouse.domain.Stock;
-import de.ithoc.warehouse.domain.Warehouse;
+import de.ithoc.warehouse.domain.model.Stock;
+import de.ithoc.warehouse.domain.model.Warehouse;
 import de.ithoc.warehouse.domain.WarehouseService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;

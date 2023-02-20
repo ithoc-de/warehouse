@@ -1,4 +1,4 @@
-package de.ithoc.warehouse.domain;
+package de.ithoc.warehouse.domain.model;
 
 import lombok.Data;
 
