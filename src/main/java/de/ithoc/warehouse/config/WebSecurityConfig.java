@@ -9,11 +9,11 @@ import org.springframework.security.web.authentication.session.RegisterSessionAu
 import org.springframework.security.web.authentication.session.SessionAuthenticationStrategy;
 
 @EnableWebSecurity
-public class OidcConfig {
+public class WebSecurityConfig {
 
     private final KeycloakLogoutHandler keycloakLogoutHandler;
 
-    public OidcConfig(KeycloakLogoutHandler keycloakLogoutHandler) {
+    public WebSecurityConfig(KeycloakLogoutHandler keycloakLogoutHandler) {
         this.keycloakLogoutHandler = keycloakLogoutHandler;
     }
 

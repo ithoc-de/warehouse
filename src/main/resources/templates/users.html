@@ -3,16 +3,17 @@
     <title>User Info</title></head>
 <body>
 
-<tr>
-
     <table>
-        <tr th:each="user: ${users}">
-            <td th:text="${user.username}"></td>
-        </tr>
         <tr>
-            <td th:text="${user.email}"></td>
+            <th><b>Username</b></th>
+            <th><b>E-Mail</b></th>
+        </tr>
+        <tr th:each="user: ${users}">
+            <td th:text="${user.username}" />
+            <td th:text="${user.email}" />
         </tr>
     </table>
+
 
 </body>
 </html>
