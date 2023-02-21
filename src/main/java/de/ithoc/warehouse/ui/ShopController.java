@@ -1,7 +1,5 @@
 package de.ithoc.warehouse.ui;
 
-import de.ithoc.warehouse.external.authprovider.schema.token.Token;
-import de.ithoc.warehouse.external.authprovider.schema.users.User;
 import de.ithoc.warehouse.external.epages.EpagesClient;
 import de.ithoc.warehouse.external.epages.schema.customers.Customers;
 import de.ithoc.warehouse.external.epages.schema.customers.Item;
@@ -26,7 +24,7 @@ public class ShopController {
     @GetMapping(path = "/customers")
     public String getCustomers(Model model) {
 
-        Customers customers = epagesClient.customers();
+        Customers customers = epagesClient.getCustomers();
         List<Item> items = customers.getItems();
         model.addAttribute("items", items);
 

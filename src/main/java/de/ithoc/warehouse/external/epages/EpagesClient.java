@@ -1,22 +1,18 @@
 package de.ithoc.warehouse.external.epages;
 
-import de.ithoc.warehouse.external.authprovider.schema.users.User;
 import de.ithoc.warehouse.external.epages.schema.customers.Customers;
 import de.ithoc.warehouse.external.epages.schema.orders.Item;
 import de.ithoc.warehouse.external.epages.schema.orders.Orders;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.time.LocalDateTime;
-import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Component
 @Slf4j
@@ -87,7 +83,7 @@ public class EpagesClient {
     }
 
 
-    public Customers customers() {
+    public Customers getCustomers() {
 
         return webClient.get()
                 .uri(apiUrl + "/customers")
