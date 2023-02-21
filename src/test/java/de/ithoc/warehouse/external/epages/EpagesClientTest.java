@@ -1,14 +1,16 @@
 package de.ithoc.warehouse.external.epages;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.tomakehurst.wiremock.WireMockServer;
-import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
 import de.ithoc.warehouse.external.epages.schema.customers.Customers;
-import de.ithoc.warehouse.external.epages.schema.orders.Orders;
+import mockwebserver3.MockResponse;
+import mockwebserver3.MockWebServer;
+import mockwebserver3.RecordedRequest;
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.boot.test.json.JsonContent;
+import org.springframework.http.HttpHeaders;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.io.IOException;
@@ -18,19 +20,54 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.format.DateTimeFormatter;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@ExtendWith(MockitoExtension.class)
 class EpagesClientTest {
 
-    private WireMockServer wireMockServer;
-    private WebClient webClient;
+    private MockWebServer mockWebServer;
+    private EpagesClient epagesClient;
+
+    private static final String apiKey = "dYjVPxUmo8QG5RVe3agxhlJRd04P3SWF"; // fake api key
 
     @BeforeEach
     void setUp() throws Exception {
-        wireMockServer = new WireMockServer(WireMockConfiguration.wireMockConfig().dynamicPort());
-        wireMockServer.start();
-        webClient = WebClient.builder().baseUrl(wireMockServer.baseUrl()).build();
+        mockWebServer = new MockWebServer();
+        int port = mockWebServer.getPort();
+        String baseUrl = "http://localhost:" + port;
+        WebClient webClient = WebClient.create();
+        epagesClient = new EpagesClient(webClient, baseUrl, apiKey);
+        mockWebServer.start();
+    }
+
+    @AfterEach
+    void tearDown() throws Exception {
+        mockWebServer.shutdown();
+    }
+
+
+    @Test
+    public void getCustomers() throws IOException, InterruptedException {
+        String authorization = "Bearer " + apiKey;
+        Customers expectedCustomers = loadTestCustomers();
+        ObjectMapper objectMapper = new ObjectMapper();
+        String customersStr = objectMapper.writeValueAsString(expectedCustomers);
+
+        MockResponse mockResponse = new MockResponse().setResponseCode(200)
+                .setHeader("Content-Type", "application/json")
+                .setHeader(HttpHeaders.AUTHORIZATION, authorization)
+                .setBody(customersStr);
+        mockWebServer.enqueue(mockResponse);
+
+        Customers customers = epagesClient.getCustomers();
+
+
+        assertThat(customers.getItems().get(0).getCustomerId())
+                .isEqualTo("632BA7E5-18CB-D0E1-9397-0A0C05B4CD37");
+
+        RecordedRequest recordedRequest = mockWebServer.takeRequest();
+        String body = recordedRequest.toString();
+        assertThat(body).contains("GET /customers HTTP/1.1");
     }
 
 
@@ -50,11 +87,6 @@ class EpagesClientTest {
         String strDateTime = formatter.format(localDateTime);
 
         assertEquals("2023-02-12T21:48:36.000Z", strDateTime);
-    }
-
-    @Test
-    public void getCustomers() throws IOException {
-        Customers customers = loadTestCustomers();
     }
 
 

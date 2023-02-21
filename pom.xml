@@ -84,9 +84,9 @@
         </dependency>
 
         <dependency>
-            <groupId>com.github.tomakehurst</groupId>
-            <artifactId>wiremock-jre8</artifactId>
-            <version>2.35.0</version>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>mockwebserver3-junit5</artifactId>
+            <version>5.0.0-alpha.11</version>
             <scope>test</scope>
         </dependency>
 
@@ -109,6 +109,12 @@
                 <version>19.0.2</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.squareup.okhttp3</groupId>
+                <artifactId>okhttp</artifactId>
+                <version>4.9.3</version>
             </dependency>
 
         </dependencies>

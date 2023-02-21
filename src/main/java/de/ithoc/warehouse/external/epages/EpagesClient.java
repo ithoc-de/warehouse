@@ -4,6 +4,8 @@ import de.ithoc.warehouse.external.epages.schema.customers.Customers;
 import de.ithoc.warehouse.external.epages.schema.orders.Item;
 import de.ithoc.warehouse.external.epages.schema.orders.Orders;
 import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
@@ -22,7 +24,6 @@ public class EpagesClient {
     private final String apiUrl;
     private final String apiKey;
 
-
     public EpagesClient(
             WebClient webClient,
             @Value("${epages.api.url}") String apiUrl,
@@ -33,20 +34,14 @@ public class EpagesClient {
         this.webClient = webClient;
     }
 
-
     public List<Item> orders(LocalDateTime fromDeliveredOnDateUtc) {
 
+        /*
+         * Get the orders which contain a billing address holding customer details
+         * like their names and e-mail addresses.
+         */
         String fromDateTimeUtc = toOrderDeliveredOnDate(fromDeliveredOnDateUtc);
-        Orders orders = webClient.get()
-                .uri(uriBuilder -> uriBuilder.path(apiUrl + "/orders")
-                        .queryParam("updatedFrom", fromDateTimeUtc)
-                        .queryParam("deliveredOn", "true")
-                        .queryParam("page", "1")
-                        .build())
-                .header(HttpHeaders.AUTHORIZATION, "Bearer " + apiKey)
-                .retrieve()
-                .bodyToMono(Orders.class)
-                .block();
+        Orders orders = getOrders(fromDateTimeUtc);
         log.debug("{}", orders);
 
         if(orders == null) {
@@ -59,6 +54,14 @@ public class EpagesClient {
          * Also consider the order status and the duration, means only delivered orders
          * from last order load are filtered and saved to this warehouse.
          */
+        List<Item> items = getItems(fromDateTimeUtc, orders);
+        log.debug("items: {}", items);
+
+        return items;
+    }
+
+    @NotNull
+    private List<Item> getItems(String fromDateTimeUtc, Orders orders) {
         List<Item> items = new ArrayList<>(orders.getItems());
         long pages = numberOfPages(orders.getResults(), orders.getResultsPerPage());
         for (int pageCount = 2; pageCount <= pages; pageCount++) {
@@ -77,11 +80,25 @@ public class EpagesClient {
                 items.addAll(furtherOrders.getItems());
             }
         }
-        log.debug("items: {}", items);
 
         return items;
     }
 
+    @Nullable
+    private Orders getOrders(String fromDateTimeUtc) {
+        Orders orders = webClient.get()
+                .uri(uriBuilder -> uriBuilder.path(apiUrl + "/orders")
+                        .queryParam("updatedFrom", fromDateTimeUtc)
+                        .queryParam("deliveredOn", "true")
+                        .queryParam("page", "1")
+                        .build())
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + apiKey)
+                .retrieve()
+                .bodyToMono(Orders.class)
+                .block();
+
+        return orders;
+    }
 
     public Customers getCustomers() {
 
@@ -93,12 +110,10 @@ public class EpagesClient {
                 .block();
     }
 
-
     private String toOrderDeliveredOnDate(LocalDateTime localDateTime) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
         return formatter.format(localDateTime);
     }
-
 
     private long numberOfPages(long results, long resultsPerPage) {
         // This division returns an integer rounded up.
@@ -108,6 +123,5 @@ public class EpagesClient {
 
         return ceiledNumberOfPages;
     }
-
 
 }
