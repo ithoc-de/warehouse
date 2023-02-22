@@ -1,6 +1,7 @@
 package de.ithoc.warehouse.domain.synchronization;
 
 import de.ithoc.warehouse.external.authprovider.OidcAdminClient;
+import de.ithoc.warehouse.external.authprovider.OidcTokenClient;
 import de.ithoc.warehouse.external.authprovider.schema.token.Token;
 import de.ithoc.warehouse.external.authprovider.schema.users.User;
 import de.ithoc.warehouse.external.epages.EpagesClient;
@@ -19,13 +20,15 @@ import java.util.Optional;
 public class SyncService {
 
     private final EpagesClient epagesClient;
+    private final OidcTokenClient oidcTokenClient;
     private final OidcAdminClient oidcAdminClient;
     private final SyncEntityRepository syncEntityRepository;
     private final SyncHistoryRepository syncHistoryRepository;
 
-    public SyncService(EpagesClient epagesClient, OidcAdminClient oidcAdminClient,
+    public SyncService(EpagesClient epagesClient, OidcTokenClient oidcTokenClient, OidcAdminClient oidcAdminClient,
                        SyncEntityRepository syncEntityRepository, SyncHistoryRepository syncHistoryRepository) {
         this.epagesClient = epagesClient;
+        this.oidcTokenClient = oidcTokenClient;
         this.oidcAdminClient = oidcAdminClient;
         this.syncEntityRepository = syncEntityRepository;
         this.syncHistoryRepository = syncHistoryRepository;
@@ -43,7 +46,7 @@ public class SyncService {
             log.error(message);
             throw new RecordNotFoundException(message);
         }
-        List<Item> filteredItems = epagesClient.orders(previousSyncHistory.get().getTimestamp());
+        List<Item> filteredItems = epagesClient.orderItems(previousSyncHistory.get().getTimestamp());
         log.debug("filteredItems: {}", filteredItems);
 
         // TODO OHO Update warehouse stocks using quantities from new orders.
@@ -57,7 +60,7 @@ public class SyncService {
             String firstName = billingAddress.getFirstName();
             String lastName = billingAddress.getLastName();
 
-            Token token = oidcAdminClient.token();
+            Token token = oidcTokenClient.token();
             User user = oidcAdminClient.getUserBy(emailAddress, token).orElseGet(() -> {
                     User newUser = new User();
                     newUser.setUsername(emailAddress);
@@ -71,8 +74,8 @@ public class SyncService {
 
                     return newUser;
             });
+            log.debug("user: {}", user);
         });
-
 
         /*
          * This current datetime is used to save it to the loading history. It will be
@@ -89,7 +92,6 @@ public class SyncService {
             log.error(message);
             throw new RecordNotFoundException(message);
         }
-        //syncHistory.setSyncEntity(syncEntity.get());
         syncHistory.setTimestamp(utc);
         syncHistoryRepository.save(syncHistory);
     }

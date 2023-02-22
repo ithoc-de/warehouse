@@ -2,6 +2,7 @@ package de.ithoc.warehouse.ui;
 
 import de.ithoc.warehouse.domain.synchronization.SyncService;
 import de.ithoc.warehouse.external.authprovider.OidcAdminClient;
+import de.ithoc.warehouse.external.authprovider.OidcTokenClient;
 import de.ithoc.warehouse.external.authprovider.schema.token.Token;
 import de.ithoc.warehouse.external.authprovider.schema.users.User;
 import lombok.extern.slf4j.Slf4j;
@@ -19,10 +20,12 @@ import java.util.Map;
 @Slf4j
 public class AdminController {
 
+    private final OidcTokenClient oidcTokenClient;
     private final OidcAdminClient oidcAdminClient;
     private final SyncService syncService;
 
-    public AdminController(OidcAdminClient oidcAdminClient, SyncService syncService) {
+    public AdminController(OidcTokenClient oidcTokenClient, OidcAdminClient oidcAdminClient, SyncService syncService) {
+        this.oidcTokenClient = oidcTokenClient;
         this.oidcAdminClient = oidcAdminClient;
         this.syncService = syncService;
     }
@@ -43,7 +46,7 @@ public class AdminController {
     @GetMapping(path = "/users")
     public String users(Model model) {
 
-        Token token = oidcAdminClient.token();
+        Token token = oidcTokenClient.token();
         // TODO OHO Do token validation here.
 
         List<User> users = oidcAdminClient.getUsers(token);

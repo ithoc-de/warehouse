@@ -16,7 +16,7 @@ public class StockMapperTest {
         StockMapper mapper = Mappers.getMapper(StockMapper.class);
         de.ithoc.warehouse.persistence.Stock stockEntity = mapper.toStockEntity(stock);
 
-        assertEquals("71", stockEntity.getQuantity());
+        assertEquals(1308, stockEntity.getQuantity());
     }
 
     private Stock getStock(int number, String name, long quantity) {

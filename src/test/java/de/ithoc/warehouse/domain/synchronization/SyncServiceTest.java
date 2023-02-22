@@ -2,6 +2,7 @@ package de.ithoc.warehouse.domain.synchronization;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.ithoc.warehouse.external.authprovider.OidcAdminClient;
+import de.ithoc.warehouse.external.authprovider.OidcTokenClient;
 import de.ithoc.warehouse.external.authprovider.schema.token.Token;
 import de.ithoc.warehouse.external.authprovider.schema.users.User;
 import de.ithoc.warehouse.external.epages.EpagesClient;
@@ -32,6 +33,9 @@ class SyncServiceTest {
 
     @Mock
     private EpagesClient epagesClient;
+
+    @Mock
+    private OidcTokenClient oidcTokenClient;
 
     @Mock
     private OidcAdminClient oidcAdminClient;
@@ -67,8 +71,8 @@ class SyncServiceTest {
         lastLoadingHistory.get().setTimestamp(deliverUtc.minusDays(3));
         when(syncHistoryRepository.findTopByOrderByTimestampDesc()).thenReturn(lastLoadingHistory);
 
-        when(epagesClient.orders(any(LocalDateTime.class))).thenReturn(orders.getItems());
-        when(oidcAdminClient.token()).thenReturn(new Token());
+        when(epagesClient.orderItems(any(LocalDateTime.class))).thenReturn(orders.getItems());
+        when(oidcTokenClient.token()).thenReturn(new Token());
         when(oidcAdminClient.getUserBy(anyString(), any(Token.class))).thenReturn(Optional.of(new User()));
         when(syncEntityRepository.findByName("Orders")).thenReturn(Optional.of(new SyncEntity()));
 

@@ -2,14 +2,13 @@ package de.ithoc.warehouse.external.epages;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.ithoc.warehouse.external.epages.schema.customers.Customers;
+import de.ithoc.warehouse.external.epages.schema.orders.Orders;
 import mockwebserver3.MockResponse;
 import mockwebserver3.MockWebServer;
 import mockwebserver3.RecordedRequest;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.json.JsonContent;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -22,6 +21,7 @@ import java.time.format.DateTimeFormatter;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 class EpagesClientTest {
 
@@ -61,13 +61,39 @@ class EpagesClientTest {
 
         Customers customers = epagesClient.getCustomers();
 
-
         assertThat(customers.getItems().get(0).getCustomerId())
                 .isEqualTo("632BA7E5-18CB-D0E1-9397-0A0C05B4CD37");
 
         RecordedRequest recordedRequest = mockWebServer.takeRequest();
         String body = recordedRequest.toString();
         assertThat(body).contains("GET /customers HTTP/1.1");
+    }
+
+
+    @Test
+    public void getOrderItems() throws IOException {
+
+        String authorization = "Bearer " + apiKey;
+        Orders expectedOrders = loadTestOrders();
+        ObjectMapper objectMapper = new ObjectMapper();
+        String ordersStr = objectMapper.writeValueAsString(expectedOrders);
+
+        MockResponse mockResponse = new MockResponse().setResponseCode(200)
+                .setHeader("Content-Type", "application/json")
+                .setHeader(HttpHeaders.AUTHORIZATION, authorization)
+                .setBody(ordersStr);
+        mockWebServer.enqueue(mockResponse);
+
+        LocalDateTime localDateTime = LocalDateTime.of(
+                2020, Month.JANUARY, 1, 0, 0, 0, 0);
+        Orders orders = epagesClient.orders(localDateTime, 1);
+
+        assertThat(orders.getItems().get(0).getCustomerId())
+                .isEqualTo("632BA7E6-2F21-C482-1565-0A0C05B41001");
+        assertThat(orders.getItems().get(0).getBillingAddress().getEmailAddress())
+                .isEqualTo("RobertLees@einrot.com");
+        assertThat(orders.getItems().get(0).getDeliveredOn())
+                .isEqualTo("2023-02-13T21:48:36.000Z");
     }
 
 
@@ -98,6 +124,16 @@ class EpagesClientTest {
 
         ObjectMapper objectMapper = new ObjectMapper();
         return objectMapper.readValue(json, Customers.class);
+    }
+
+    private Orders loadTestOrders() throws IOException {
+        InputStream inputStream = getClass().getClassLoader()
+                .getResourceAsStream("test-orders.json");
+        assert inputStream != null;
+        String json = new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.readValue(json, Orders.class);
     }
 
 }
