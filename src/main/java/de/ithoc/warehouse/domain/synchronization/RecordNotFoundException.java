@@ -1,4 +1,4 @@
-package de.ithoc.warehouse.persistence;
+package de.ithoc.warehouse.domain.synchronization;
 
 public class RecordNotFoundException extends RuntimeException {
 

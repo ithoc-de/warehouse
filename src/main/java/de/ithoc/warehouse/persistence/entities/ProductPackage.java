@@ -1,27 +1,25 @@
-package de.ithoc.warehouse.persistence;
+package de.ithoc.warehouse.persistence.entities;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-public class SyncHistory {
+public class ProductPackage {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private LocalDateTime timestamp;
+    private String name;
 
-    @ManyToOne
-    private SyncEntity syncEntity;
-
+    @OneToMany
+    private List<Product> products;
 
 }

@@ -3,9 +3,8 @@ package de.ithoc.warehouse.domain.model;
 import lombok.Data;
 
 @Data
-public class Client {
+public class ClientModel {
 
-    private String externalId;
     private String name;
 
 }

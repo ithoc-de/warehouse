@@ -1,14 +1,13 @@
 package de.ithoc.warehouse.external.authprovider;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.ithoc.warehouse.domain.synchronization.MultipleOAuth2UsersExeption;
+import de.ithoc.warehouse.domain.synchronization.MultipleOAuth2UsersException;
 import de.ithoc.warehouse.external.authprovider.schema.token.Token;
 import de.ithoc.warehouse.external.authprovider.schema.users.User;
 import de.ithoc.warehouse.external.authprovider.schema.users.UserInput;
 import mockwebserver3.MockResponse;
 import mockwebserver3.MockWebServer;
 import mockwebserver3.RecordedRequest;
-import okhttp3.Dispatcher;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,7 +24,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
-class OidcAdminClientTest {
+class OidcAdminClientTestModel {
 
     private final MockWebServer mockWebServer = new MockWebServer();
 
@@ -103,8 +102,8 @@ class OidcAdminClientTest {
 
         Token token = new ObjectMapper().readValue(load("test-token.json"), Token.class);
 
-        assertThrows(MultipleOAuth2UsersExeption.class, () -> {
-            Optional<User> user = oidcAdminClient.getUserBy("oliver.hock@example.com", token);
+        assertThrows(MultipleOAuth2UsersException.class, () -> {
+            oidcAdminClient.getUserBy("oliver.hock@example.com", token);
         });
     }
 

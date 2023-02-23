@@ -1,6 +1,6 @@
 package de.ithoc.warehouse.external.authprovider;
 
-import de.ithoc.warehouse.domain.synchronization.MultipleOAuth2UsersExeption;
+import de.ithoc.warehouse.domain.synchronization.MultipleOAuth2UsersException;
 import de.ithoc.warehouse.external.authprovider.schema.token.Token;
 import de.ithoc.warehouse.external.authprovider.schema.users.User;
 import de.ithoc.warehouse.external.authprovider.schema.users.UserInput;
@@ -12,7 +12,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Mono;
 
 import java.net.URI;
 import java.util.List;
@@ -56,7 +55,7 @@ public class OidcAdminClient {
                         .scheme(adminApiUrl.getScheme())
                         .host(adminApiUrl.getHost())
                         .port(adminApiUrl.getPort())
-                        .path("/users")
+                        .path(adminApiUrl.getPath() + "/users")
                         .queryParam("email", email)
                         .queryParam("exact", "true")
                         .build()
@@ -74,7 +73,7 @@ public class OidcAdminClient {
                 String message = "OAuth2 error on provider: " +
                         "Multiple users exist for given e-mail address '" + email + "'";
                 log.error(message);
-                throw new MultipleOAuth2UsersExeption("Ambiguous users exist: " + users.size());
+                throw new MultipleOAuth2UsersException("Ambiguous users exist: " + users.size());
             }
         }
         log.debug("user: {}", user);

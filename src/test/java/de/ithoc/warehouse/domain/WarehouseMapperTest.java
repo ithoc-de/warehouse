@@ -1,15 +1,12 @@
 package de.ithoc.warehouse.domain;
 
 import de.ithoc.warehouse.domain.model.WarehouseMapper;
-import de.ithoc.warehouse.persistence.ProductPackage;
-import de.ithoc.warehouse.persistence.Stock;
-import de.ithoc.warehouse.persistence.Warehouse;
+import de.ithoc.warehouse.persistence.entities.ProductPackage;
+import de.ithoc.warehouse.persistence.entities.Warehouse;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

@@ -1,4 +1,4 @@
-package de.ithoc.warehouse.persistence;
+package de.ithoc.warehouse.persistence.entities;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,7 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ProductPackage {
+public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,7 +19,9 @@ public class ProductPackage {
 
     private String name;
 
+    private String externalId;
+
     @OneToMany
-    private List<Product> products;
+    private List<Stock> stocks;
 
 }

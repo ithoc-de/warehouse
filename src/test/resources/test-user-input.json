@@ -5,5 +5,8 @@
   "firstName": "User",
   "lastName": "Name",
   "enabled": true,
-  "requiredActions": [ "UPDATE_PASSWORD" ]
+  "requiredActions": [ "UPDATE_PASSWORD" ],
+  "attributes": {
+    "company": "Stadt Oelde"
+  }
 }

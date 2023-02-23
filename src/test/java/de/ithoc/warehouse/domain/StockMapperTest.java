@@ -14,7 +14,7 @@ public class StockMapperTest {
         Stock stock = getStock(71, "Product Name", 1308);
 
         StockMapper mapper = Mappers.getMapper(StockMapper.class);
-        de.ithoc.warehouse.persistence.Stock stockEntity = mapper.toStockEntity(stock);
+        de.ithoc.warehouse.persistence.entities.Stock stockEntity = mapper.toStockEntity(stock);
 
         assertEquals(1308, stockEntity.getQuantity());
     }
@@ -27,9 +27,9 @@ public class StockMapperTest {
         return stock;
     }
 
-    private de.ithoc.warehouse.persistence.Stock getStockEntity(int number, String name, long quantity) {
+    private de.ithoc.warehouse.persistence.entities.Stock getStockEntity(int number, String name, long quantity) {
 
-        de.ithoc.warehouse.persistence.Stock stock = new de.ithoc.warehouse.persistence.Stock();
+        de.ithoc.warehouse.persistence.entities.Stock stock = new de.ithoc.warehouse.persistence.entities.Stock();
         stock.setQuantity(quantity);
 
         return stock;

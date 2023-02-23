@@ -71,7 +71,7 @@ class EpagesClientTest {
 
 
     @Test
-    public void getOrderItems() throws IOException {
+    public void orders() throws IOException {
 
         String authorization = "Bearer " + apiKey;
         Orders expectedOrders = loadTestOrders();

@@ -1,24 +1,25 @@
-package de.ithoc.warehouse.persistence;
+package de.ithoc.warehouse.persistence.entities;
 
+import javax.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-public class SyncEntity {
+public class Warehouse {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
     private String name;
 
-    private String timestampField;
+    @OneToMany
+    private List<ProductPackage> productPackages;
 
 }

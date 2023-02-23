@@ -9,6 +9,11 @@
     "firstName": "Oliver",
     "lastName": "Hock",
     "email": "oliver.hock@gmail.com",
+    "attributes": {
+      "company": [
+        "Stadt Oelde"
+      ]
+    },
     "disableableCredentialTypes": [],
     "requiredActions": [ "UPDATE_PASSWORD" ],
     "notBefore": 0,
@@ -29,6 +34,11 @@
     "emailVerified": false,
     "firstName": "",
     "lastName": "",
+    "attributes": {
+      "company": [
+        "Stadt Oelde"
+      ]
+    },
     "disableableCredentialTypes": [],
     "requiredActions": [ "UPDATE_PASSWORD" ],
     "notBefore": 0,
@@ -49,6 +59,11 @@
     "emailVerified": true,
     "firstName": "Paul",
     "lastName": "Rutyna",
+    "attributes": {
+      "company": [
+        "Stadt Oelde"
+      ]
+    },
     "email": "oliver.hock+1@gmail.com",
     "disableableCredentialTypes": [],
     "requiredActions": [ "UPDATE_PASSWORD" ],
@@ -70,6 +85,11 @@
     "emailVerified": false,
     "firstName": "",
     "lastName": "",
+    "attributes": {
+      "company": [
+        "Stadt Oelde"
+      ]
+    },
     "disableableCredentialTypes": [],
     "requiredActions": [ "UPDATE_PASSWORD" ],
     "notBefore": 0,

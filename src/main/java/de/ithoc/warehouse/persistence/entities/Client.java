@@ -1,4 +1,4 @@
-package de.ithoc.warehouse.persistence;
+package de.ithoc.warehouse.persistence.entities;
 
 import javax.persistence.*;
 import lombok.Getter;

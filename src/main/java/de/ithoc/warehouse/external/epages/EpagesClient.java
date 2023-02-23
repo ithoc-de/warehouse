@@ -41,7 +41,7 @@ public class EpagesClient {
                         .scheme(apiUri.getScheme())
                         .host(apiUri.getHost())
                         .port(apiUri.getPort())
-                        .path(apiUri.getPath())
+                        .path(apiUri.getPath() + "/orders")
                         .queryParam("updatedFrom", dateTimeStr)
                         .queryParam("deliveredOn", "true")
                         .queryParam("page", page)
@@ -64,7 +64,7 @@ public class EpagesClient {
         Orders orders = orders(fromDeliveredOnDateUtc, 1);
         log.debug("{}", orders);
 
-        if(orders == null) {
+        if(orders == null || orders.getResults() == null) {
             // if no order items are available we are done
             return List.of();
         }
