@@ -10,7 +10,7 @@
     "lastName": "Hock",
     "email": "oliver.hock@gmail.com",
     "disableableCredentialTypes": [],
-    "requiredActions": [],
+    "requiredActions": [ "UPDATE_PASSWORD" ],
     "notBefore": 0,
     "access": {
       "manageGroupMembership": true,
@@ -30,7 +30,7 @@
     "firstName": "",
     "lastName": "",
     "disableableCredentialTypes": [],
-    "requiredActions": [],
+    "requiredActions": [ "UPDATE_PASSWORD" ],
     "notBefore": 0,
     "access": {
       "manageGroupMembership": true,
@@ -51,7 +51,7 @@
     "lastName": "Rutyna",
     "email": "oliver.hock+1@gmail.com",
     "disableableCredentialTypes": [],
-    "requiredActions": [],
+    "requiredActions": [ "UPDATE_PASSWORD" ],
     "notBefore": 0,
     "access": {
       "manageGroupMembership": true,
@@ -71,7 +71,7 @@
     "firstName": "",
     "lastName": "",
     "disableableCredentialTypes": [],
-    "requiredActions": [],
+    "requiredActions": [ "UPDATE_PASSWORD" ],
     "notBefore": 0,
     "access": {
       "manageGroupMembership": true,
