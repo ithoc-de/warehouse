@@ -6,8 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-public class Warehouse {
+public class PackageModel {
 
     private String name;
+    private String externalId;
+    private List<ProductModel> productModels = new ArrayList<>();
 
 }

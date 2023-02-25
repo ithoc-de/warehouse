@@ -20,7 +20,6 @@ public class Stock {
     private Long id;
 
     private LocalDateTime validFrom;
-    private LocalDateTime validTo;
 
     private Long quantity;
 

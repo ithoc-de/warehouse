@@ -1,4 +1,4 @@
-package de.ithoc.warehouse.domain.synchronization;
+package de.ithoc.warehouse.domain.mapper;
 
 import de.ithoc.warehouse.external.authprovider.schema.users.User;
 import de.ithoc.warehouse.external.authprovider.schema.users.UserInput;

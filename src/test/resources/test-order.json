@@ -1,0 +1,346 @@
+{
+  "orderId": "632BA7E7-FA1E-07D2-D57E-0A0C05B4CDE5",
+  "orderNumber": "1008",
+  "creationDate": "2022-09-22T00:10:15.000Z",
+  "customerId": "632BA7E7-A102-8D27-4B0C-0A0C05B4CD81",
+  "customerNumber": "1007",
+  "locale": null,
+  "currencyId": "EUR",
+  "taxModel": "GROSS",
+  "grandTotal": "57.14",
+  "totalBeforeTax": "47.22",
+  "totalTax": "9.92",
+  "customerComment": null,
+  "internalNote": null,
+  "billingAddress": {
+    "company": "Schneiderei",
+    "salutation": null,
+    "firstName": "Madison",
+    "lastName": "Gough",
+    "street": "14 Town Lane",
+    "streetDetails": null,
+    "zipCode": "HP16 2PZ",
+    "city": "South Heath",
+    "state": null,
+    "country": "GB",
+    "title": null,
+    "vatId": null,
+    "birthday": null,
+    "addressExtension": null,
+    "bankAccountHolder": null,
+    "bankAccountNumber": null,
+    "bankName": null,
+    "bankSortCode": null,
+    "businessEmailAddress": null,
+    "businessPhoneNumber": null,
+    "department": null,
+    "displayName": null,
+    "doorCode": null,
+    "faxNumber": null,
+    "fiscalCode": null,
+    "gender": null,
+    "jobTitle": null,
+    "middleName": null,
+    "mobilePhoneNumber": null,
+    "phoneNumber": null,
+    "privateEmailAddress": null,
+    "privatePhoneNumber": null,
+    "websiteUrl": null,
+    "emailAddress": "MadisonGough@einrot.com"
+  },
+  "shippingAddress": null,
+  "shippingData": {
+    "shippingMethod": {
+      "id": "632BA7E3-5AE4-9373-B0C4-0A0C05B4CD28",
+      "name": "Customer pickup"
+    },
+    "price": {
+      "taxType": "GROSS",
+      "formatted": "0.00 €",
+      "amount": 0,
+      "currency": "EUR"
+    },
+    "taxes": []
+  },
+  "paymentData": {
+    "paymentMethod": {
+      "id": "632BA7E3-B185-A7E5-B9C3-0A0C05B4CDA2",
+      "name": "Invoice",
+      "providerName": null,
+      "additionalData": null
+    },
+    "transactionId": null,
+    "price": {
+      "taxType": "GROSS",
+      "formatted": "0.00 €",
+      "amount": 0,
+      "currency": "EUR"
+    },
+    "status": null,
+    "taxes": null
+  },
+  "viewedOn": "2017-03-30T13:49:25.000Z",
+  "rejectedOn": null,
+  "inProcessOn": "2023-02-13T21:44:53.000Z",
+  "pendingOn": null,
+  "readyForDispatchOn": null,
+  "partiallyDispatchedOn": null,
+  "dispatchedOn": null,
+  "deliveredOn": "2023-02-13T21:48:36.000Z",
+  "partiallyInvoicedOn": null,
+  "invoicedOn": null,
+  "partiallyPaidOn": null,
+  "paidOn": null,
+  "returnedOn": null,
+  "closedOn": null,
+  "archivedOn": null,
+  "lineItemContainer": {
+    "grandTotal": {
+      "taxType": "GROSS",
+      "formatted": "57.14 €",
+      "amount": 57.14,
+      "currency": "EUR"
+    },
+    "totalBeforeTax": {
+      "taxType": "NET",
+      "formatted": "47.22 €",
+      "amount": 47.22,
+      "currency": "EUR"
+    },
+    "totalTax": {
+      "taxType": "NONE",
+      "formatted": "9.92 €",
+      "amount": 9.92,
+      "currency": "EUR"
+    },
+    "lineItemsSubTotal": {
+      "taxType": "GROSS",
+      "formatted": "57.14 €",
+      "amount": 57.14,
+      "currency": "EUR"
+    },
+    "productLineItems": [
+      {
+        "lineItemId": "632BA7E7-C0CF-3504-D62A-0A0C05B4CD08",
+        "sku": "1001",
+        "name": "[Example] Framed Butterfly Painting",
+        "productId": "632BA7E3-C57F-E122-587F-0A0C05B4CD66",
+        "quantity": {
+          "amount": 1,
+          "unit": "piece(s)"
+        },
+        "lineItemPrice": {
+          "taxType": "GROSS",
+          "formatted": "40.57 €",
+          "amount": 40.57,
+          "currency": "EUR"
+        },
+        "singleItemPrice": {
+          "taxType": "GROSS",
+          "formatted": "40.57 €",
+          "amount": 40.57,
+          "currency": "EUR"
+        },
+        "lineItemCouponDiscount": null,
+        "images": [
+          {
+            "url": "https://wandering-block-6754.devshop.epages.com/WebRoot/epagesdev/Shops/wandering-block-6754/Products/1001/frame_h.jpg",
+            "classifier": "HotDeal",
+            "isZoomEnabled": false,
+            "width": 0,
+            "height": 0,
+            "fileSize": 0
+          },
+          {
+            "url": "https://wandering-block-6754.devshop.epages.com/WebRoot/epagesdev/Shops/wandering-block-6754/Products/1001/frame.jpg",
+            "classifier": "Large",
+            "isZoomEnabled": false,
+            "width": 0,
+            "height": 0,
+            "fileSize": 0
+          },
+          {
+            "url": "https://wandering-block-6754.devshop.epages.com/WebRoot/epagesdev/Shops/wandering-block-6754/Products/1001/frame_m.jpg",
+            "classifier": "Medium",
+            "isZoomEnabled": false,
+            "width": 0,
+            "height": 0,
+            "fileSize": 0
+          },
+          {
+            "url": "https://wandering-block-6754.devshop.epages.com/WebRoot/epagesdev/Shops/wandering-block-6754/Products/1001/frame_s.jpg",
+            "classifier": "Small",
+            "isZoomEnabled": false,
+            "width": 0,
+            "height": 0,
+            "fileSize": 0
+          },
+          {
+            "url": "https://wandering-block-6754.devshop.epages.com/WebRoot/epagesdev/Shops/wandering-block-6754/Products/1001/frame_xs.jpg",
+            "classifier": "Thumbnail",
+            "isZoomEnabled": false,
+            "width": 0,
+            "height": 0,
+            "fileSize": 0
+          }
+        ],
+        "links": [
+          {
+            "rel": "product",
+            "href": "https://devshop.epages.com/rs/shops/wandering-block-6754/products/632BA7E3-C57F-E122-587F-0A0C05B4CD66"
+          },
+          {
+            "rel": "taxClass",
+            "href": "https://devshop.epages.com/rs/shops/wandering-block-6754/tax-classes/578C83E4-9A7F-12BB-8DEE-0A0C05B4A9C2"
+          }
+        ],
+        "variationString": null,
+        "listPrice": {
+          "taxType": "GROSS",
+          "formatted": "40.57 €",
+          "amount": 40.57,
+          "currency": "EUR"
+        },
+        "essentialFeatures": "Frame: Black",
+        "taxClass": {
+          "taxClassId": "578C83E4-9A7F-12BB-8DEE-0A0C05B4A9C2",
+          "name": "standard",
+          "percentage": 21.0
+        },
+        "deliveryWeight": null,
+        "energyLabelsString": null,
+        "energyLabelsMaxEfficiencyString": null,
+        "energyLabelSourceFile": null,
+        "additionalInformation": {
+          "bulkPriceInfo": null
+        },
+        "customizedText": null,
+        "customizedHeadLineText": null
+      },
+      {
+        "lineItemId": "632BA7E7-AF63-5C00-669F-0A0C05B4CDD7",
+        "sku": "1003",
+        "name": "[Example] Indoor Plant Calathea",
+        "productId": "632BA7E4-284A-B51A-470E-0A0C05B4CDD8",
+        "quantity": {
+          "amount": 3,
+          "unit": "piece(s)"
+        },
+        "lineItemPrice": {
+          "taxType": "GROSS",
+          "formatted": "16.57 €",
+          "amount": 16.57,
+          "currency": "EUR"
+        },
+        "singleItemPrice": {
+          "taxType": "GROSS",
+          "formatted": "16.57 €",
+          "amount": 16.57,
+          "currency": "EUR"
+        },
+        "lineItemCouponDiscount": null,
+        "images": [
+          {
+            "url": "https://wandering-block-6754.devshop.epages.com/WebRoot/epagesdev/Shops/wandering-block-6754/Products/1003/plant_h.jpg",
+            "classifier": "HotDeal",
+            "isZoomEnabled": false,
+            "width": 0,
+            "height": 0,
+            "fileSize": 0
+          },
+          {
+            "url": "https://wandering-block-6754.devshop.epages.com/WebRoot/epagesdev/Shops/wandering-block-6754/Products/1003/plant.jpg",
+            "classifier": "Large",
+            "isZoomEnabled": false,
+            "width": 0,
+            "height": 0,
+            "fileSize": 0
+          },
+          {
+            "url": "https://wandering-block-6754.devshop.epages.com/WebRoot/epagesdev/Shops/wandering-block-6754/Products/1003/plant_m.jpg",
+            "classifier": "Medium",
+            "isZoomEnabled": false,
+            "width": 0,
+            "height": 0,
+            "fileSize": 0
+          },
+          {
+            "url": "https://wandering-block-6754.devshop.epages.com/WebRoot/epagesdev/Shops/wandering-block-6754/Products/1003/plant_s.jpg",
+            "classifier": "Small",
+            "isZoomEnabled": false,
+            "width": 0,
+            "height": 0,
+            "fileSize": 0
+          },
+          {
+            "url": "https://wandering-block-6754.devshop.epages.com/WebRoot/epagesdev/Shops/wandering-block-6754/Products/1003/plant_xs.jpg",
+            "classifier": "Thumbnail",
+            "isZoomEnabled": false,
+            "width": 0,
+            "height": 0,
+            "fileSize": 0
+          }
+        ],
+        "links": [
+          {
+            "rel": "product",
+            "href": "https://devshop.epages.com/rs/shops/wandering-block-6754/products/632BA7E4-284A-B51A-470E-0A0C05B4CDD8"
+          },
+          {
+            "rel": "taxClass",
+            "href": "https://devshop.epages.com/rs/shops/wandering-block-6754/tax-classes/578C83E4-9A7F-12BB-8DEE-0A0C05B4A9C2"
+          }
+        ],
+        "variationString": null,
+        "listPrice": {
+          "taxType": "GROSS",
+          "formatted": "16.57 €",
+          "amount": 16.57,
+          "currency": "EUR"
+        },
+        "essentialFeatures": "Blossoms: Orange",
+        "taxClass": {
+          "taxClassId": "578C83E4-9A7F-12BB-8DEE-0A0C05B4A9C2",
+          "name": "standard",
+          "percentage": 21.0
+        },
+        "deliveryWeight": null,
+        "energyLabelsString": null,
+        "energyLabelsMaxEfficiencyString": null,
+        "energyLabelSourceFile": null,
+        "additionalInformation": {
+          "bulkPriceInfo": null
+        },
+        "customizedText": null,
+        "customizedHeadLineText": null
+      }
+    ],
+    "couponLineItem": null,
+    "shippingPrice": {
+      "taxType": "GROSS",
+      "formatted": "0.00 €",
+      "amount": 0,
+      "currency": "EUR"
+    },
+    "deposits": [],
+    "ecoParticipations": [],
+    "shippingOptions": [],
+    "basketDiscount": {
+      "links": []
+    }
+  },
+  "links": [
+    {
+      "rel": "self",
+      "href": "https://devshop.epages.com/rs/shops/wandering-block-6754/orders/632BA7E7-FA1E-07D2-D57E-0A0C05B4CDE5"
+    },
+    {
+      "rel": "customer",
+      "href": "https://devshop.epages.com/rs/shops/wandering-block-6754/customers/632BA7E7-A102-8D27-4B0C-0A0C05B4CD81"
+    },
+    {
+      "rel": "shipping-method",
+      "href": "https://devshop.epages.com/rs/shops/wandering-block-6754/shipping-methods/632BA7E3-5AE4-9373-B0C4-0A0C05B4CD28"
+    }
+  ]
+}

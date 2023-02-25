@@ -1,7 +1,7 @@
 package de.ithoc.warehouse.ui;
 
-import de.ithoc.warehouse.domain.model.Stock;
-import de.ithoc.warehouse.domain.model.Warehouse;
+import de.ithoc.warehouse.domain.model.StockModel;
+import de.ithoc.warehouse.domain.model.WarehouseModel;
 import de.ithoc.warehouse.domain.WarehouseService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -26,7 +26,7 @@ public class WarehouseController {
     }
 
     @GetMapping(path = "/warehouse")
-    public String warehouse(@ModelAttribute Warehouse warehouse) {
+    public String warehouse(@ModelAttribute WarehouseModel warehouse) {
 
         // TODO Implement this controller
         warehouse.setName("My Warehouse");
@@ -35,7 +35,7 @@ public class WarehouseController {
     }
 
     @PostMapping(path = "/stocks")
-    public String stocks(@RequestParam String stockNumber, @ModelAttribute Stock stock) {
+    public String stocks(@RequestParam String stockNumber, @ModelAttribute StockModel stock) {
 
         return "stock";
     }

@@ -1,7 +1,8 @@
 package de.ithoc.warehouse.domain;
 
-import de.ithoc.warehouse.domain.model.Stock;
-import de.ithoc.warehouse.domain.model.StockMapper;
+import de.ithoc.warehouse.domain.model.StockModel;
+import de.ithoc.warehouse.domain.mapper.StockMapper;
+import de.ithoc.warehouse.persistence.entities.Stock;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 
@@ -11,25 +12,25 @@ public class StockMapperTest {
 
     @Test
     public void mapFromStockModelToStockEntity() {
-        Stock stock = getStock(71, "Product Name", 1308);
+        StockModel stock = getStock(71, "Product Name", 1308);
 
         StockMapper mapper = Mappers.getMapper(StockMapper.class);
-        de.ithoc.warehouse.persistence.entities.Stock stockEntity = mapper.toStockEntity(stock);
+        Stock stockEntity = mapper.toStockEntity(stock);
 
         assertEquals(1308, stockEntity.getQuantity());
     }
 
-    private Stock getStock(int number, String name, long quantity) {
+    private StockModel getStock(int number, String name, long quantity) {
 
-        Stock stock = new Stock();
+        StockModel stock = new StockModel();
         stock.setQuantity(quantity);
 
         return stock;
     }
 
-    private de.ithoc.warehouse.persistence.entities.Stock getStockEntity(int number, String name, long quantity) {
+    private Stock getStockEntity(int number, String name, long quantity) {
 
-        de.ithoc.warehouse.persistence.entities.Stock stock = new de.ithoc.warehouse.persistence.entities.Stock();
+        Stock stock = new Stock();
         stock.setQuantity(quantity);
 
         return stock;

@@ -1,14 +1,14 @@
 package de.ithoc.warehouse.persistence.repositories;
 
-import de.ithoc.warehouse.persistence.entities.Warehouse;
+import de.ithoc.warehouse.persistence.entities.Package;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
-public interface WarehouseRepository extends JpaRepository<Warehouse, Long> {
+public interface PackageRepository extends JpaRepository<Package, Long> {
 
-    Optional<Warehouse> findByName(String name);
+    Optional<Package> findByName(String name);
 
 }

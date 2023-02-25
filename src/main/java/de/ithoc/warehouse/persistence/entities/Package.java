@@ -11,15 +11,16 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ProductPackage {
+public class Package {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true)
     private String name;
 
-    @OneToMany
+    @ManyToMany
     private List<Product> products;
 
 }

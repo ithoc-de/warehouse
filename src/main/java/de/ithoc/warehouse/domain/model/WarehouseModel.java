@@ -3,9 +3,8 @@ package de.ithoc.warehouse.domain.model;
 import lombok.Data;
 
 @Data
-public class Shop {
+public class WarehouseModel {
 
     private String name;
-    private String shopId;
 
 }
