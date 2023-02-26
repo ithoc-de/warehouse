@@ -1,13 +1,11 @@
 package de.ithoc.warehouse.domain.synchronization;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.ithoc.warehouse.domain.mapper.OidcUserMapper;
 import de.ithoc.warehouse.external.authprovider.OidcAdminClient;
 import de.ithoc.warehouse.external.authprovider.OidcTokenClient;
 import de.ithoc.warehouse.external.authprovider.schema.token.Token;
 import de.ithoc.warehouse.external.authprovider.schema.users.Attributes;
 import de.ithoc.warehouse.external.authprovider.schema.users.User;
-import de.ithoc.warehouse.external.authprovider.schema.users.UserInput;
 import de.ithoc.warehouse.external.epages.EpagesClient;
 import de.ithoc.warehouse.external.epages.schema.orders.Item;
 import de.ithoc.warehouse.external.epages.schema.orders.Orders;
@@ -18,7 +16,6 @@ import de.ithoc.warehouse.persistence.repositories.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.keycloak.models.UserModel;
-import org.mapstruct.factory.Mappers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -207,7 +204,7 @@ class SyncServiceTest {
 
 
     @Test
-    public void loadNewOrder() {
+    public void loadNewOrders() {
         int n = 3;
         List<Item> items = new ArrayList<>();
         for (int i = 0; i < n; i++) {
@@ -221,13 +218,19 @@ class SyncServiceTest {
             order.setOrderId(orderId);
             when(epagesClient.order(orderId)).thenReturn(order);
         }
+        when(epagesClient.orderItems(any(LocalDateTime.class))).thenReturn(items);
 
-        List<Order> orders = syncService.loadNewOrders(items);
+        SyncHistory syncHistory = new SyncHistory();
+        syncHistory.setTimestamp(LocalDateTime.now());
+        List<Order> orders = syncService.loadNewOrders(syncHistory);
 
         assertThat(orders.size()).isEqualTo(n);
         for (int i = 0; i < n; i++) {
             assertThat(orders.get(i).getOrderId()).isEqualTo("" + (i + 1));
         }
+
+        verify(epagesClient, times(1)).orderItems(any(LocalDateTime.class));
+        verify(epagesClient, times(n)).order(anyString());
     }
 
 
@@ -342,137 +345,105 @@ class SyncServiceTest {
 
 
     @Test
-    public void toUserInput() {
-        User user = new User();
-        user.setUsername("user.name@example.com");
-        user.setEmail("user.name@example.com");
-        user.setFirstName("User");
-        user.setLastName("Name");
-        user.setEmailVerified(true);
-        user.setEnabled(Boolean.TRUE);
-        user.setRequiredActions(List.of("UPDATE_PASSWORD"));
+    public void loadLastSyncHistory() {
+        SyncEntity syncEntity = new SyncEntity();
+        syncEntity.setName("Orders");
+        syncEntity.setTimestampField("deliveredOn");
+        when(syncEntityRepository.findByName(eq("Orders"))).thenReturn(Optional.of(syncEntity));
 
-        OidcUserMapper oidcUserMapper = Mappers.getMapper(OidcUserMapper.class);
-        UserInput userInput = oidcUserMapper.toUserInput(user);
-
-        assertThat(userInput.getUsername()).isEqualTo("user.name@example.com");
-        assertThat(userInput.getEmail()).isEqualTo("user.name@example.com");
-        assertThat(userInput.getFirstName()).isEqualTo("User");
-        assertThat(userInput.getLastName()).isEqualTo("Name");
-        assertThat(userInput.getEmailVerified()).isEqualTo(true);
-        assertThat(userInput.getEnabled()).isEqualTo(true);
-        assertThat(userInput.getRequiredActions().get(0)).isEqualTo("UPDATE_PASSWORD");
-    }
-
-
-    @Test
-    public void toUser() {
-        UserInput userInput = new UserInput();
-        userInput.setUsername("user.name@example.com");
-        userInput.setEmail("user.name@example.com");
-        userInput.setFirstName("User");
-        userInput.setLastName("Name");
-        userInput.setEmailVerified(true);
-        userInput.setEnabled(Boolean.TRUE);
-        userInput.setRequiredActions(List.of("UPDATE_PASSWORD"));
-
-        OidcUserMapper oidcUserMapper = Mappers.getMapper(OidcUserMapper.class);
-        User user = oidcUserMapper.toUser(userInput);
-
-        assertThat(user.getUsername()).isEqualTo("user.name@example.com");
-        assertThat(user.getEmail()).isEqualTo("user.name@example.com");
-        assertThat(user.getFirstName()).isEqualTo("User");
-        assertThat(user.getLastName()).isEqualTo("Name");
-        assertThat(user.getEmailVerified()).isEqualTo(true);
-        assertThat(user.getEnabled()).isEqualTo(true);
-        assertThat(user.getRequiredActions().get(0)).isEqualTo("UPDATE_PASSWORD");
-    }
-
-
-    @Test
-    public void createUserInput() {
-        UserInput userInput = SyncService.createUserInput("user.name@example.com",
-                "User", "Name", "Company", "UPDATE_PASSWORD");
-
-        assertThat(userInput.getUsername()).isEqualTo("user.name@example.com");
-        assertThat(userInput.getEmail()).isEqualTo("user.name@example.com");
-        assertThat(userInput.getFirstName()).isEqualTo("User");
-        assertThat(userInput.getLastName()).isEqualTo("Name");
-        assertThat(userInput.getEmailVerified()).isEqualTo(true);
-        assertThat(userInput.getEnabled()).isEqualTo(true);
-        assertThat(userInput.getCompany()).isEqualTo("Company");
-        assertThat(userInput.getRequiredActions().get(0)).isEqualTo("UPDATE_PASSWORD");
-    }
-
-
-    @Test
-    public void getFilteredItems() throws IOException {
         SyncHistory syncHistory = new SyncHistory();
         syncHistory.setTimestamp(LocalDateTime.now());
-        when(syncHistoryRepository.findTopByOrderByTimestampDesc()).thenReturn(Optional.of(syncHistory));
+        syncHistory.setSyncEntity(syncEntity);
+        when(syncHistoryRepository.findTopBySyncEntityOrderByTimestampDesc(any(SyncEntity.class)))
+                .thenReturn(Optional.of(syncHistory));
 
-        Orders orders = loadTestOrders();
-        List<Item> filteredItemsMock = orders.getItems();
-        when(epagesClient.orderItems(any(LocalDateTime.class))).thenReturn(filteredItemsMock);
+        SyncHistory actualSyncHistory = syncService.loadLastSyncHistory();
 
-        List<Item> filteredItems = syncService.loadNewOrderItems();
-        assertThat(filteredItems.size()).isGreaterThan(0);
+        assertThat(actualSyncHistory).isNotNull();
+        assertThat(actualSyncHistory.getTimestamp()).isNotNull();
+        assertThat(actualSyncHistory.getSyncEntity()).isNotNull();
+        assertThat(actualSyncHistory.getSyncEntity().getName()).isEqualTo("Orders");
+
+        verify(syncEntityRepository, times(1)).findByName(anyString());
+        verify(syncHistoryRepository, times(1))
+                .findTopBySyncEntityOrderByTimestampDesc(any(SyncEntity.class));
     }
 
 
     @Test
-    public void getFilteredItemsNoHistory() {
-        when(syncHistoryRepository.findTopByOrderByTimestampDesc()).thenReturn(Optional.empty());
+    public void loadLastSyncHistoryEntityException() {
+        when(syncEntityRepository.findByName(eq("Orders"))).thenReturn(Optional.empty());
 
         assertThrows(RecordNotFoundException.class, () -> {
-            syncService.loadNewOrderItems();
+            syncService.loadLastSyncHistory();
         });
+
+        verify(syncEntityRepository, times(1)).findByName(anyString());
+        verify(syncHistoryRepository, times(0))
+                .findTopBySyncEntityOrderByTimestampDesc(any(SyncEntity.class));
+    }
+
+
+    @Test
+    public void loadLastSyncHistoryHistoryException() {
+        SyncEntity syncEntity = new SyncEntity();
+        syncEntity.setName("Orders");
+        syncEntity.setTimestampField("deliveredOn");
+        when(syncEntityRepository.findByName(eq("Orders"))).thenReturn(Optional.of(syncEntity));
+
+        when(syncHistoryRepository.findTopBySyncEntityOrderByTimestampDesc(any(SyncEntity.class)))
+                .thenReturn(Optional.empty());
+
+        assertThrows(RecordNotFoundException.class, () -> {
+            syncService.loadLastSyncHistory();
+        });
+
+        verify(syncEntityRepository, times(1)).findByName(anyString());
+        verify(syncHistoryRepository, times(1))
+                .findTopBySyncEntityOrderByTimestampDesc(any(SyncEntity.class));
     }
 
 
     @Test
     public void checkForUser() throws IOException {
-        Orders orders = loadTestOrders();
-        List<Item> filteredItems = orders.getItems();
+        Order order = loadTestOrder();
         User user = new User();
-        user.setEmail("RobertLees@einrot.com");
+        user.setEmail("MadisonGough@einrot.com");
 
         when(oidcTokenClient.token()).thenReturn(new Token());
         when(oidcAdminClient.getUserBy(eq(user.getEmail()), any(Token.class))).thenReturn(Optional.of(user));
 
-        List<User> users = syncService.checkForUsers(filteredItems);
+        User actualUser = syncService.checkForUser(order);
 
-        assertThat(users.size()).isEqualTo(5);
-        verify(oidcTokenClient, times(5)).token();
+        assertThat(actualUser).isNotNull();
+        assertThat(actualUser.getEmail()).isEqualTo("MadisonGough@einrot.com");
+        verify(oidcTokenClient, times(1)).token();
         verify(oidcAdminClient, times(0))
                 .requiredActionAsString(any(UserModel.RequiredAction.class));
-        verify(oidcAdminClient, times(0))
-                .postUser(any(UserInput.class), any(Token.class));
+        verify(oidcAdminClient, times(0)).postUser(any(User.class), any(Token.class));
     }
 
 
     @Test
     public void checkCreateUser() throws IOException {
-        Orders orders = loadTestOrders();
-        List<Item> filteredItems = orders.getItems();
+        Order order = loadTestOrder();
         User user = new User();
-        user.setEmail("RobertLees@einrot.com");
+        user.setEmail("MadisonGough@einrot.com");
 
         when(oidcTokenClient.token()).thenReturn(new Token());
         when(oidcAdminClient.getUserBy(eq(user.getEmail()), any(Token.class))).thenReturn(Optional.empty());
         when(oidcAdminClient.requiredActionAsString(any(UserModel.RequiredAction.class)))
                 .thenReturn("UPDATE_PASSWORD");
-        doNothing().when(oidcAdminClient).postUser(any(UserInput.class), any(Token.class));
+        when(oidcAdminClient.postUser(any(User.class), any(Token.class))).thenReturn(user);
 
-        List<User> users = syncService.checkForUsers(filteredItems);
+        User actualUser = syncService.checkForUser(order);
 
-        assertThat(users.size()).isEqualTo(5);
-        verify(oidcTokenClient, times(5)).token();
-        verify(oidcAdminClient, times(5))
+        assertThat(actualUser).isNotNull();
+        assertThat(actualUser.getEmail()).isEqualTo("MadisonGough@einrot.com");
+        verify(oidcTokenClient, times(1)).token();
+        verify(oidcAdminClient, times(1))
                 .requiredActionAsString(any(UserModel.RequiredAction.class));
-        verify(oidcAdminClient, times(5))
-                .postUser(any(UserInput.class), any(Token.class));
-
+        verify(oidcAdminClient, times(1)).postUser(any(User.class), any(Token.class));
     }
 
 
@@ -491,7 +462,7 @@ class SyncServiceTest {
 
         Optional<SyncHistory> lastLoadingHistory = Optional.of(new SyncHistory());
         lastLoadingHistory.get().setTimestamp(deliverUtc.minusDays(3));
-        when(syncHistoryRepository.findTopByOrderByTimestampDesc()).thenReturn(lastLoadingHistory);
+        when(syncHistoryRepository.findTopBySyncEntityOrderByTimestampDesc(any(SyncEntity.class))).thenReturn(lastLoadingHistory);
 
         when(epagesClient.orderItems(any(LocalDateTime.class))).thenReturn(orders.getItems());
         when(oidcTokenClient.token()).thenReturn(new Token());
@@ -500,7 +471,8 @@ class SyncServiceTest {
 
         syncService.syncQuantities();
 
-        verify(syncHistoryRepository, times(1)).findTopByOrderByTimestampDesc();
+        verify(syncHistoryRepository, times(1))
+                .findTopBySyncEntityOrderByTimestampDesc(any(SyncEntity.class));
         verify(syncHistoryRepository, times(1)).save(any(SyncHistory.class));
     }
 
@@ -539,6 +511,17 @@ class SyncServiceTest {
 
         ObjectMapper objectMapper = new ObjectMapper();
         return objectMapper.readValue(json, Orders.class);
+    }
+
+
+    private Order loadTestOrder() throws IOException {
+        InputStream inputStream = getClass().getClassLoader()
+                .getResourceAsStream("test-order.json");
+        assert inputStream != null;
+        String json = new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.readValue(json, Order.class);
     }
 
 }

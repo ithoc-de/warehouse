@@ -1,13 +1,11 @@
 package de.ithoc.warehouse.domain.synchronization;
 
-import de.ithoc.warehouse.domain.mapper.OidcUserMapper;
 import de.ithoc.warehouse.external.authprovider.OidcAdminClient;
 import de.ithoc.warehouse.external.authprovider.OidcTokenClient;
 import de.ithoc.warehouse.external.authprovider.schema.token.Token;
+import de.ithoc.warehouse.external.authprovider.schema.users.Attributes;
 import de.ithoc.warehouse.external.authprovider.schema.users.User;
-import de.ithoc.warehouse.external.authprovider.schema.users.UserInput;
 import de.ithoc.warehouse.external.epages.EpagesClient;
-import de.ithoc.warehouse.external.epages.schema.orders.BillingAddress;
 import de.ithoc.warehouse.external.epages.schema.orders.Item;
 import de.ithoc.warehouse.external.epages.schema.orders.order.Order;
 import de.ithoc.warehouse.persistence.entities.Package;
@@ -16,7 +14,6 @@ import de.ithoc.warehouse.persistence.repositories.*;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.keycloak.models.UserModel;
-import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -65,17 +62,24 @@ public class SyncService {
         /*
          * Load the last loading timestamp to filter orders that have been delivered since last load.
          */
-        List<Item> orderItems = loadNewOrderItems();
-        List<Order> orders = loadNewOrders(orderItems);
+        SyncHistory syncHistory = loadLastSyncHistory();
+        List<Order> orders = loadNewOrders(syncHistory);
 
         orders.forEach(order -> {
             String clientName = order.getBillingAddress().getCompany();
-            if(clientName == null) {
+            if (clientName == null) {
                 clientName = order.getBillingAddress().getFirstName() + " " + order.getBillingAddress().getLastName();
             }
 
+            /*
+             * Get the customers from the orders and check if they need to be added to the authorization server.
+             * Here the company is set which will be used as client, warehouse and package name later on
+             * in case no entity of such exist.
+             */
+            User user = checkForUser(order);
+
             Client client = checkForClient(clientName);
-            if(client.getWarehouses() == null || client.getWarehouses().isEmpty()) {
+            if (client.getWarehouses() == null || client.getWarehouses().isEmpty()) {
                 Warehouse warehouse = checkForWarehouse(clientName);
                 List<Warehouse> warehouses = new ArrayList<>();
                 warehouses.add(warehouse);
@@ -86,7 +90,7 @@ public class SyncService {
             order.getLineItemContainer().getProductLineItems().forEach(productLineItem -> {
                 Product product = checkForProduct(productLineItem.getProductId(), productLineItem.getName());
                 Package aPackage = checkForPackage(product);
-                if(aPackage.getProducts() == null || aPackage.getProducts().size() == 0) {
+                if (aPackage.getProducts() == null || aPackage.getProducts().size() == 0) {
                     List<Product> products = new ArrayList<>();
                     products.add(product);
                     aPackage.setProducts(products);
@@ -107,6 +111,7 @@ public class SyncService {
                 Stock stock = new Stock();
                 stock.setValidFrom(timestamp);
                 stock.setQuantity(quantity);
+                stock.setUpdatedBy(user.getUsername());
                 stockRepository.save(stock);
 
                 stocks.add(stock);
@@ -116,19 +121,10 @@ public class SyncService {
         });
 
         /*
-         * Get the customers from the orders and check if they need to be added to the authorization server.
-         */
-        List<User> users = checkForUsers(orderItems);
-
-        /*
          * This current datetime is used to save it to the loading history. It will be
          * used for next orders load.
          */
         updateSyncHistory(timestamp);
-    }
-
-
-    private void updateStocks(List<Order> orders) {
     }
 
 
@@ -148,7 +144,7 @@ public class SyncService {
 
 
     Product checkForStocks(Product product) {
-        if(product.getStocks() == null || product.getStocks().size() == 0) {
+        if (product.getStocks() == null || product.getStocks().size() == 0) {
             Stock stock = new Stock();
             stock.setQuantity(0L);
             stock.setValidFrom(LocalDateTime.of(
@@ -179,13 +175,36 @@ public class SyncService {
 
 
     /**
+     *
+     * @return SyncHistory
+     */
+    SyncHistory loadLastSyncHistory() {
+        SyncEntity syncEntity = syncEntityRepository.findByName("Orders").orElseThrow(() -> {
+            String message = "Sync entity 'Orders' not found. Please create one.";
+            log.error(message);
+            throw new RecordNotFoundException(message);
+        });
+        log.debug("syncEntity: {}", syncEntity);
+
+        SyncHistory syncHistory = syncHistoryRepository.findTopBySyncEntityOrderByTimestampDesc(syncEntity).orElseThrow(() -> {
+            String message = "Sync history for entity 'Orders' not found. Please create one.";
+            log.error(message);
+            throw new RecordNotFoundException(message);
+        });
+        log.debug("syncHistory: {}", syncHistory);
+
+        return syncHistory;
+    }
+
+
+    /**
      * Load single orders by their order IDs taken from the order items.
      *
-     * @param orderItems Order items loaded from shop.
      * @return All orders which contain customer and quantities.
      */
-    List<Order> loadNewOrders(List<Item> orderItems) {
-
+    List<Order> loadNewOrders(SyncHistory syncHistory) {
+        List<Item> orderItems = epagesClient.orderItems(syncHistory.getTimestamp());
+        log.debug("orderItems: {}", orderItems);
         List<Order> orders = orderItems.stream()
                 .map(orderItem -> epagesClient.order(orderItem.getOrderId()))
                 .toList();
@@ -197,7 +216,7 @@ public class SyncService {
 
     Client checkForClient(String clientName) {
         Optional<Client> clientOptional = clientRepository.findByName(clientName);
-        if(clientOptional.isEmpty()) {
+        if (clientOptional.isEmpty()) {
             Client newClient = new Client();
             newClient.setName(clientName); // defaults to company name
             newClient = clientRepository.save(newClient);
@@ -212,7 +231,7 @@ public class SyncService {
 
     Warehouse checkForWarehouse(String warehouseName) {
         Optional<Warehouse> warehouseOptional = warehouseRepository.findByName(warehouseName);
-        if(warehouseOptional.isEmpty()) {
+        if (warehouseOptional.isEmpty()) {
             Warehouse newWarehouse = new Warehouse();
             newWarehouse.setName(warehouseName); // defaults to company name
             newWarehouse = warehouseRepository.save(newWarehouse);
@@ -261,65 +280,43 @@ public class SyncService {
     }
 
 
-    List<User> checkForUsers(List<Item> filteredItems) {
-        List<User> users = new ArrayList<>();
-        filteredItems.forEach(item -> {
-            BillingAddress billingAddress = item.getBillingAddress();
-            String company = billingAddress.getCompany();
-            String emailAddress = billingAddress.getEmailAddress();
-            String firstName = billingAddress.getFirstName();
-            String lastName = billingAddress.getLastName();
+    User checkForUser(Order order) {
+        de.ithoc.warehouse.external.epages.schema.orders.order.BillingAddress billingAddress = order.getBillingAddress();
+        String company = billingAddress.getCompany();
+        String emailAddress = billingAddress.getEmailAddress();
+        String firstName = billingAddress.getFirstName();
+        String lastName = billingAddress.getLastName();
 
-            Token token = oidcTokenClient.token();
-            User user = oidcAdminClient.getUserBy(emailAddress, token).orElseGet(() -> {
-                String requiredAction = oidcAdminClient.requiredActionAsString(UserModel.RequiredAction.UPDATE_PASSWORD);
-                UserInput userInput = createUserInput(emailAddress, firstName, lastName, company, requiredAction);
-                oidcAdminClient.postUser(userInput, token);
-                log.debug("userInput: {}:", userInput);
-                OidcUserMapper oidcUserMapper = Mappers.getMapper(OidcUserMapper.class);
-                return oidcUserMapper.toUser(userInput);
-            });
-            log.debug("user: {}", user);
-            users.add(user);
-        });
-        log.debug("users: {}", users);
-
-        return users;
-    }
-
-
-    List<Item> loadNewOrderItems() {
-
-        Optional<SyncHistory> previousSyncHistory = syncHistoryRepository.findTopByOrderByTimestampDesc();
-        if (previousSyncHistory.isEmpty()) {
-            String message = "No previous sync history found. Insert at least one record to the database.";
-            log.error(message);
-            throw new RecordNotFoundException(message);
+        Token token = oidcTokenClient.token();
+        Optional<User> userOptional = oidcAdminClient.getUserBy(emailAddress, token);
+        if (userOptional.isEmpty()) {
+            String requiredAction = oidcAdminClient.requiredActionAsString(UserModel.RequiredAction.UPDATE_PASSWORD);
+            User newUser = createUser(emailAddress, firstName, lastName, company, requiredAction);
+            userOptional = Optional.of(oidcAdminClient.postUser(newUser, token));
         }
-        List<Item> filteredItems = epagesClient.orderItems(previousSyncHistory.get().getTimestamp());
-        log.debug("filteredItems: {}", filteredItems);
+        User user = userOptional.get();
+        log.debug("user: {}", user);
 
-        return filteredItems;
+        return user;
     }
 
 
     @NotNull
-    static UserInput createUserInput(String emailAddress,
-                                     String firstName, String lastName,
-                                     String company, String requiredAction) {
-
-        UserInput userInput = new UserInput();
-
-        userInput.setUsername(emailAddress);
-        userInput.setEmail(emailAddress);
-        userInput.setFirstName(firstName);
-        userInput.setLastName(lastName);
-        userInput.setEmailVerified(Boolean.TRUE);
-        userInput.setEnabled(Boolean.TRUE);
-        userInput.setCompany(company);
-        userInput.setRequiredActions(List.of(requiredAction));
-
-        return userInput;
+    static User createUser(String emailAddress,
+                           String firstName, String lastName,
+                           String company, String requiredAction) {
+        User user = new User();
+        user.setUsername(emailAddress);
+        user.setEmail(emailAddress);
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        user.setEmailVerified(Boolean.TRUE);
+        user.setEnabled(Boolean.TRUE);
+        Attributes attributes = new Attributes();
+        attributes.setCompany(List.of(company));
+        user.setAttributes(attributes);
+        user.setRequiredActions(List.of(requiredAction));
+        return user;
     }
 
 }

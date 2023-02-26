@@ -3,7 +3,6 @@ package de.ithoc.warehouse.external.authprovider;
 import de.ithoc.warehouse.domain.synchronization.MultipleOAuth2UsersException;
 import de.ithoc.warehouse.external.authprovider.schema.token.Token;
 import de.ithoc.warehouse.external.authprovider.schema.users.User;
-import de.ithoc.warehouse.external.authprovider.schema.users.UserInput;
 import lombok.extern.slf4j.Slf4j;
 import org.keycloak.models.UserModel;
 import org.springframework.beans.factory.annotation.Value;
@@ -103,14 +102,14 @@ public class OidcAdminClient {
     }
 
 
-    public Void postUser(UserInput userInput, Token token) {
+    public User postUser(User user, Token token) {
 
-        Void block = webClient.post()
+        User block = webClient.post()
                 .uri(adminApiUrl + "/users")
                 .header(HttpHeaders.AUTHORIZATION, "Bearer " + token.getAccessToken())
-                .body(BodyInserters.fromValue(userInput))
+                .body(BodyInserters.fromValue(user))
                 .retrieve()
-                .bodyToMono(Void.class)
+                .bodyToMono(User.class)
                 .block();
         log.debug("bock: {}", block);
 

@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import de.ithoc.warehouse.domain.synchronization.MultipleOAuth2UsersException;
 import de.ithoc.warehouse.external.authprovider.schema.token.Token;
 import de.ithoc.warehouse.external.authprovider.schema.users.User;
-import de.ithoc.warehouse.external.authprovider.schema.users.UserInput;
 import mockwebserver3.MockResponse;
 import mockwebserver3.MockWebServer;
 import mockwebserver3.RecordedRequest;
@@ -24,7 +23,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
-class OidcAdminClientTestModel {
+class OidcAdminClientTest {
 
     private final MockWebServer mockWebServer = new MockWebServer();
 
@@ -144,19 +143,19 @@ class OidcAdminClientTestModel {
                 .setHeader("Location", location);
         mockWebServer.enqueue(mockResponse);
 
-        UserInput userInput = new UserInput();
-        userInput.setUsername("user.name@example.com");
-        userInput.setEmail("user.name@example.com");
-        userInput.setEmailVerified(true);
-        userInput.setFirstName("User");
-        userInput.setLastName("Name");
-        userInput.setEnabled(true);
-        userInput.setRequiredActions(List.of("UPDATE_PASSWORD"));
+        User user = new User();
+        user.setUsername("user.name@example.com");
+        user.setEmail("user.name@example.com");
+        user.setEmailVerified(true);
+        user.setFirstName("User");
+        user.setLastName("Name");
+        user.setEnabled(true);
+        user.setRequiredActions(List.of("UPDATE_PASSWORD"));
 
         Token token = new ObjectMapper().readValue(load("test-token.json"), Token.class);
 
-        Void unused = oidcAdminClient.postUser(userInput, token);
-        assertThat(unused).isNull();
+        User newUser = oidcAdminClient.postUser(user, token);
+        assertThat(newUser).isNull();
 
         RecordedRequest recordedRequest = mockWebServer.takeRequest(1, TimeUnit.SECONDS);
         assert recordedRequest != null;

@@ -14,7 +14,7 @@ import java.nio.charset.StandardCharsets;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class OidcTokenClientTestModel {
+class OidcTokenClientTest {
 
     private final MockWebServer mockWebServer = new MockWebServer();
 
