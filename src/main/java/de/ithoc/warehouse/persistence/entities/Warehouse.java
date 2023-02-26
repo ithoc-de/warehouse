@@ -20,6 +20,6 @@ public class Warehouse {
     private String name;
 
     @OneToMany
-    private List<Package> aPackages;
+    private List<Package> packages;
 
 }
