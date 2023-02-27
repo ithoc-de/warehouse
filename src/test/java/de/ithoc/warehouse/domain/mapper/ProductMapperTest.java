@@ -53,14 +53,14 @@ public class ProductMapperTest {
         String externalId = UUID.randomUUID().toString();
         Product product = new Product();
         product.setId(7L);
-        product.setNumber(11L);
+        product.setNumber("11");
         product.setName("Produktname");
         product.setExternalId(externalId);
         product.setStocks(stocks);
 
         ProductModel productModel = productMapper.toModel(product);
 
-        assertThat(productModel.getNumber()).isEqualTo(11);
+        assertThat(productModel.getNumber()).isEqualTo("11");
         assertThat(productModel.getName()).isEqualTo("Produktname");
         assertThat(productModel.getExternalId()).isEqualTo(externalId);
         assertThat(productModel.getStockModels().size()).isEqualTo(stockCount);

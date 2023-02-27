@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import de.ithoc.warehouse.external.epages.schema.customers.Customers;
 import de.ithoc.warehouse.external.epages.schema.orders.Orders;
 import de.ithoc.warehouse.external.epages.schema.orders.order.Order;
+import de.ithoc.warehouse.external.epages.schema.products.product.Product;
 import mockwebserver3.MockResponse;
 import mockwebserver3.MockWebServer;
 import mockwebserver3.RecordedRequest;
@@ -139,6 +140,24 @@ class EpagesClientTest {
 
 
     @Test
+    public void productByProductId() throws IOException {
+        String authorization = "Bearer " + apiKey;
+        String response = loadTestProduct();
+        MockResponse mockResponse = new MockResponse().setResponseCode(200)
+                .setHeader("Content-Type", "application/json")
+                .setHeader(HttpHeaders.AUTHORIZATION, authorization)
+                .setBody(response);
+        mockWebServer.enqueue(mockResponse);
+
+        Product product = epagesClient.product("632BA7E3-C57F-E122-587F-0A0C05B4CD66");
+
+        assertThat(product.getProductId()).isEqualTo("632BA7E3-C57F-E122-587F-0A0C05B4CD66");
+        assertThat(product.getName()).isEqualTo("[Example] Framed Butterfly Painting");
+        assertThat(product.getProductNumber()).isEqualTo("1001");
+    }
+
+
+    @Test
     public void mapEpagesDateToJava() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'");
         String dateString = "2015-11-03T08:48:26Z";
@@ -185,6 +204,13 @@ class EpagesClientTest {
 
         ObjectMapper objectMapper = new ObjectMapper();
         return objectMapper.readValue(json, Order.class);
+    }
+
+    private String loadTestProduct() throws IOException {
+        InputStream inputStream = getClass().getClassLoader()
+                .getResourceAsStream("test-product.json");
+        assert inputStream != null;
+        return new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
     }
 
 }

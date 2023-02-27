@@ -6,10 +6,11 @@ import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(uses = WarehouseMapper.class)
+@Mapper(uses = { WarehouseMapper.class, ProductMapper.class })
 public interface ClientMapper {
 
     @Mapping(source = "warehouses", target = "warehouseModels")
+    @Mapping(source = "products", target = "productModels")
     ClientModel toModel(Client client);
 
     @InheritInverseConfiguration

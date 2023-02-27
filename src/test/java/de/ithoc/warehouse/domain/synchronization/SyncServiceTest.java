@@ -503,6 +503,22 @@ class SyncServiceTest {
     }
 
 
+    @Test
+    public void loadProduct() {
+        String productId = "PRODUCT-ID";
+        de.ithoc.warehouse.external.epages.schema.products.product.Product product =
+                new de.ithoc.warehouse.external.epages.schema.products.product.Product();
+        product.setProductId(productId);
+        product.setProductNumber("1001");
+        when(epagesClient.product(eq(productId))).thenReturn(product);
+
+        de.ithoc.warehouse.external.epages.schema.products.product.Product actualProduct =
+                syncService.loadProduct(productId);
+
+        assertThat(actualProduct.getProductId()).isEqualTo(productId);
+        assertThat(actualProduct.getProductNumber()).isEqualTo("1001");
+    }
+
     private Orders loadTestOrders() throws IOException {
         InputStream inputStream = getClass().getClassLoader()
                 .getResourceAsStream("test-orders.json");

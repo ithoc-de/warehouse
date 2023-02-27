@@ -17,13 +17,15 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long number;
+    private String number;
 
     @Column(unique = true)
     private String name;
 
     @Column(unique = true)
     private String externalId;
+
+    private Long quantity;
 
     @OneToMany
     private List<Stock> stocks;

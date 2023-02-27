@@ -8,9 +8,12 @@ import java.util.List;
 @Data
 public class ProductModel {
 
-    private Long number;
+    private Long lineNo;
+    private String number;
     private String name;
     private String externalId;
+    private Long quantity;
+
     private List<StockModel> stockModels = new ArrayList<>();
 
 }
