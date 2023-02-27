@@ -10,19 +10,24 @@
 
 <body>
 
-<table>
+
+<table class="table table-striped">
+    <thead>
     <tr>
-        <th>Nr.</th>
-        <th>Produkt</th>
-        <th>Bestand</th>
-        <th>ExternalID</th>
+        <th scope="col">Nummer</th>
+        <th scope="col">Produkt</th>
+        <th scope="col">Bestand</th>
+        <th scope="col">ID</th>
     </tr>
+    </thead>
+    <tbody>
     <tr th:each="productModel: ${productModels}">
-        <td th:text="${productModel.number}"></td>
+        <th th:text="${productModel.number}" scope="row"></th>
         <td th:text="${productModel.name}"></td>
         <td th:text="${productModel.quantity}"></td>
         <td th:text="${productModel.externalId}"></td>
     </tr>
+    </tbody>
 </table>
 
 
