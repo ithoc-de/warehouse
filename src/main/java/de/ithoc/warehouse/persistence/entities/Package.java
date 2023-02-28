@@ -17,6 +17,8 @@ public class Package {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String externalId;
+
     @Column(unique = true)
     private String name;
 

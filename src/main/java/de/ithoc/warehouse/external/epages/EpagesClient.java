@@ -4,6 +4,7 @@ import de.ithoc.warehouse.external.epages.schema.customers.Customers;
 import de.ithoc.warehouse.external.epages.schema.orders.Item;
 import de.ithoc.warehouse.external.epages.schema.orders.Orders;
 import de.ithoc.warehouse.external.epages.schema.orders.order.Order;
+import de.ithoc.warehouse.external.epages.schema.products.product.Product;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
@@ -142,6 +143,19 @@ public class EpagesClient {
         log.debug("customers: {}", customers);
 
         return customers;
+    }
+
+
+    public Product product(String productId) {
+        Product product = webClient.get()
+                .uri(apiUri + "/products/" + productId)
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + apiKey)
+                .retrieve()
+                .bodyToMono(Product.class)
+                .block();
+        log.debug("product: {}", product);
+
+        return product;
     }
 
 

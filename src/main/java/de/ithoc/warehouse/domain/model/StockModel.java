@@ -2,14 +2,14 @@ package de.ithoc.warehouse.domain.model;
 
 import lombok.Data;
 
-import java.time.LocalDateTime;
-
 @Data
 public class StockModel {
 
-    private LocalDateTime validFrom;
-    private LocalDateTime validTo;
+    private String productId;
+    private String productName;
+    private String productImage;
 
     private Long quantity;
+    private String unit;
 
 }

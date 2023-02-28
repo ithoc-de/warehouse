@@ -1,0 +1,138 @@
+{
+  "productId": "632BA7E3-C57F-E122-587F-0A0C05B4CD66",
+  "name": "[Example] Framed Butterfly Painting",
+  "visible": true,
+  "productVariationType": "regular",
+  "productVariationMasterName": null,
+  "productVariationMasterId": null,
+  "manufacturerProductNumber": null,
+  "productLength": null,
+  "productWidth": null,
+  "productHeight": null,
+  "productVariationSelection": null,
+  "shortDescription": "<p>This detailed drawing is an eye-catcher in any home. The drawing comes in a high-quality, black, wooden frame. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>",
+  "deliveryPeriod": "3",
+  "description": null,
+  "title": "[Example] Framed Butterfly Painting - Solution4Europe",
+  "productImage": "frame.jpg",
+  "images": [
+    {
+      "url": "https://wandering-block-6754.devshop.epages.com/WebRoot/epagesdev/Shops/wandering-block-6754/Products/1001/frame_h.jpg",
+      "classifier": "HotDeal",
+      "isZoomEnabled": true,
+      "width": 150,
+      "height": 150,
+      "fileSize": 1059
+    },
+    {
+      "url": "https://wandering-block-6754.devshop.epages.com/WebRoot/epagesdev/Shops/wandering-block-6754/Products/1001/frame_m.jpg",
+      "classifier": "Medium",
+      "isZoomEnabled": true,
+      "width": 500,
+      "height": 500,
+      "fileSize": 4186
+    },
+    {
+      "url": "https://wandering-block-6754.devshop.epages.com/WebRoot/epagesdev/Shops/wandering-block-6754/Products/1001/frame.jpg",
+      "classifier": "Large",
+      "isZoomEnabled": true,
+      "width": 1000,
+      "height": 1000,
+      "fileSize": 17833
+    },
+    {
+      "url": "https://wandering-block-6754.devshop.epages.com/WebRoot/epagesdev/Shops/wandering-block-6754/Products/1001/frame_s.jpg",
+      "classifier": "Small",
+      "isZoomEnabled": true,
+      "width": 100,
+      "height": 100,
+      "fileSize": 691
+    },
+    {
+      "url": "https://wandering-block-6754.devshop.epages.com/WebRoot/epagesdev/Shops/wandering-block-6754/Products/1001/frame_xs.jpg",
+      "classifier": "Thumbnail",
+      "isZoomEnabled": true,
+      "width": 33,
+      "height": 33,
+      "fileSize": 247
+    }
+  ],
+  "priceInfo": {
+    "quantity": {
+      "amount": 1,
+      "unit": "piece(s)"
+    },
+    "taxClass": {
+      "taxClassId": "578C83E4-489D-675A-3FF0-0A0C05B4A94E",
+      "name": "standard",
+      "percentage": 19.0
+    },
+    "price": {
+      "taxType": "GROSS",
+      "formatted": "39.90 €",
+      "amount": 39.9,
+      "currency": "EUR"
+    },
+    "depositPrice": null,
+    "ecoParticipationPrice": null,
+    "priceWithDeposits": {
+      "taxType": "GROSS",
+      "formatted": "39.90 €",
+      "amount": 39.9,
+      "currency": "EUR"
+    },
+    "manufacturerPrice": null,
+    "basePrice": null,
+    "lowestPrice": null,
+    "highestPrice": null
+  },
+  "bulkPriceInfo": null,
+  "forSale": true,
+  "specialOffer": false,
+  "deliveryWeight": null,
+  "availabilityText": "Low stock",
+  "availability": "WarnStock",
+  "energyLabelsString": null,
+  "energyLabelsMaxEfficiencyString": null,
+  "energyLabelSourceFile": null,
+  "productDataSheet": null,
+  "sfUrl": "http://wandering-block-6754.devshop.epages.com/p/632BA7E3-C57F-E122-587F-0A0C05B4CD66",
+  "productNumber": "1001",
+  "isCustomizable": false,
+  "customizableTextLength": 50.0,
+  "customizableHeadlineText": null,
+  "isProductNumberVisible": false,
+  "isManufacturerPriceRRP": false,
+  "isShippingLinkVisible": true,
+  "manufacturer": null,
+  "upc": null,
+  "ean": null,
+  "essentialFeatures": "Frame: Black",
+  "searchKeywords": [
+    "art",
+    "painting",
+    "decoration"
+  ],
+  "stocklevel": 4.0,
+  "videos": [],
+  "minStocklevel": 5.0,
+  "links": [
+    {
+      "rel": "self",
+      "href": "https://devshop.epages.com/rs/shops/wandering-block-6754/products/632BA7E3-C57F-E122-587F-0A0C05B4CD66"
+    },
+    {
+      "rel": "categories",
+      "href": "https://devshop.epages.com/rs/shops/wandering-block-6754/categories/?productId=632BA7E3-C57F-E122-587F-0A0C05B4CD66"
+    },
+    {
+      "rel": "slideshow",
+      "href": "https://devshop.epages.com/rs/shops/wandering-block-6754/products/632BA7E3-C57F-E122-587F-0A0C05B4CD66/slideshow"
+    },
+    {
+      "rel": "main-category",
+      "href": "https://devshop.epages.com/rs/shops/wandering-block-6754/categories/632BA7E1-C7B2-40CE-614A-0A0C05B4CD17",
+      "title": "Home"
+    }
+  ]
+}

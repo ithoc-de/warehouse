@@ -8,6 +8,7 @@ import de.ithoc.warehouse.external.authprovider.schema.users.User;
 import de.ithoc.warehouse.external.epages.EpagesClient;
 import de.ithoc.warehouse.external.epages.schema.orders.Item;
 import de.ithoc.warehouse.external.epages.schema.orders.order.Order;
+import de.ithoc.warehouse.external.epages.schema.products.product.Image;
 import de.ithoc.warehouse.persistence.entities.Package;
 import de.ithoc.warehouse.persistence.entities.*;
 import de.ithoc.warehouse.persistence.repositories.*;
@@ -89,6 +90,17 @@ public class SyncService {
 
             order.getLineItemContainer().getProductLineItems().forEach(productLineItem -> {
                 Product product = checkForProduct(productLineItem.getProductId(), productLineItem.getName());
+                de.ithoc.warehouse.external.epages.schema.products.product.Product shopProduct =
+                        loadProduct(productLineItem.getProductId());
+                product.setNumber(shopProduct.getProductNumber());
+                Optional<Image> imageOptional = shopProduct.getImages().stream()
+                        .filter(image -> "Small".equals(image.getClassifier())).findFirst();
+                Image image = imageOptional.orElseGet(() -> {
+                    Image emptyImage = new Image();
+                    emptyImage.setUrl("");
+                    return emptyImage;
+                });
+                product.setImage(image.getUrl());
                 Package aPackage = checkForPackage(product);
                 if (aPackage.getProducts() == null || aPackage.getProducts().size() == 0) {
                     List<Product> products = new ArrayList<>();
@@ -96,6 +108,15 @@ public class SyncService {
                     aPackage.setProducts(products);
                     packageRepository.save(aPackage);
                 }
+
+                /*
+                 * Add the product to the client and save all of it.
+                 */
+                if(client.getProducts() == null) {
+                    client.setProducts(new ArrayList<>());
+                }
+                client.getProducts().add(product);
+                clientRepository.save(client);
 
                 /*
                  * Update warehouse stocks using quantities from new orders.
@@ -108,11 +129,14 @@ public class SyncService {
                 Long quantity = stocks.get(0).getQuantity();
                 quantity += productLineItem.getQuantity().getAmount();
 
+
                 Stock stock = new Stock();
                 stock.setValidFrom(timestamp);
                 stock.setQuantity(quantity);
                 stock.setUpdatedBy(user.getUsername());
                 stockRepository.save(stock);
+
+                product.setQuantity(quantity);
 
                 stocks.add(stock);
                 product.setStocks(stocks);
@@ -211,6 +235,15 @@ public class SyncService {
         log.debug("orders: {}", orders);
 
         return orders;
+    }
+
+
+    de.ithoc.warehouse.external.epages.schema.products.product.Product loadProduct(String productId) {
+        de.ithoc.warehouse.external.epages.schema.products.product.Product product =
+                epagesClient.product(productId);
+        log.debug("product: {}", product);
+
+        return product;
     }
 
 

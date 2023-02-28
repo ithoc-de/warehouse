@@ -26,4 +26,7 @@ public class Client {
     @OneToMany
     private List<Warehouse> warehouses;
 
+    @OneToMany
+    private List<Product> products;
+
 }

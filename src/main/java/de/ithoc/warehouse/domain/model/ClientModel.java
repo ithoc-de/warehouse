@@ -11,9 +11,6 @@ public class ClientModel {
     private String name;
     private List<CustomerModel> customers = new ArrayList<>();
     private List<WarehouseModel> warehouseModels = new ArrayList<>();
-
-    public void add(WarehouseModel warehouseModel) {
-        this.warehouseModels.add(warehouseModel);
-    }
+    private List<ProductModel> productModels = new ArrayList<>();
 
 }

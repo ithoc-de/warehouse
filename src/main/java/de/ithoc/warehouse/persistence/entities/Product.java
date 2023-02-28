@@ -17,11 +17,16 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String number;
+    private String image;
+
     @Column(unique = true)
     private String name;
 
     @Column(unique = true)
     private String externalId;
+
+    private Long quantity;
 
     @OneToMany
     private List<Stock> stocks;
