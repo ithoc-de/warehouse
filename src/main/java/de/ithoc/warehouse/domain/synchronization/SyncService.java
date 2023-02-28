@@ -8,6 +8,7 @@ import de.ithoc.warehouse.external.authprovider.schema.users.User;
 import de.ithoc.warehouse.external.epages.EpagesClient;
 import de.ithoc.warehouse.external.epages.schema.orders.Item;
 import de.ithoc.warehouse.external.epages.schema.orders.order.Order;
+import de.ithoc.warehouse.external.epages.schema.products.product.Image;
 import de.ithoc.warehouse.persistence.entities.Package;
 import de.ithoc.warehouse.persistence.entities.*;
 import de.ithoc.warehouse.persistence.repositories.*;
@@ -89,7 +90,17 @@ public class SyncService {
 
             order.getLineItemContainer().getProductLineItems().forEach(productLineItem -> {
                 Product product = checkForProduct(productLineItem.getProductId(), productLineItem.getName());
-                product.setNumber(loadProduct(productLineItem.getProductId()).getProductNumber());
+                de.ithoc.warehouse.external.epages.schema.products.product.Product shopProduct =
+                        loadProduct(productLineItem.getProductId());
+                product.setNumber(shopProduct.getProductNumber());
+                Optional<Image> imageOptional = shopProduct.getImages().stream()
+                        .filter(image -> "Small".equals(image.getClassifier())).findFirst();
+                Image image = imageOptional.orElseGet(() -> {
+                    Image emptyImage = new Image();
+                    emptyImage.setUrl("");
+                    return emptyImage;
+                });
+                product.setImage(image.getUrl());
                 Package aPackage = checkForPackage(product);
                 if (aPackage.getProducts() == null || aPackage.getProducts().size() == 0) {
                     List<Product> products = new ArrayList<>();

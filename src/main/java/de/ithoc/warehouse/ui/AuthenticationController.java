@@ -16,6 +16,20 @@ public class AuthenticationController {
     }
 
 
+    @GetMapping("/home")
+    public String home() {
+
+        return "home";
+    }
+
+
+    @GetMapping("/login")
+    public String login() {
+
+        return "home";
+    }
+
+
     @GetMapping(path = "/logout")
     public String logout(Model model) {
 

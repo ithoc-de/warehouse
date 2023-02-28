@@ -10,6 +10,7 @@ public class ProductModel {
 
     private Long lineNo;
     private String number;
+    private String image;
     private String name;
     private String externalId;
     private Long quantity;

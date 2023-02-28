@@ -18,6 +18,7 @@ public class Product {
     private Long id;
 
     private String number;
+    private String image;
 
     @Column(unique = true)
     private String name;
