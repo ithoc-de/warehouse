@@ -1,0 +1,423 @@
+{
+  "results": 8,
+  "page": 1,
+  "resultsPerPage": 10,
+  "items": [
+    {
+      "customerId": "632BA7E5-18CB-D0E1-9397-0A0C05B4CD37",
+      "customerNumber": "1000",
+      "creationDate": "2022-09-22T00:10:13Z",
+      "billingAddress": {
+        "company": null,
+        "salutation": null,
+        "firstName": "John",
+        "lastName": "Doe",
+        "street": "Doestreet 10",
+        "streetDetails": null,
+        "zipCode": "11005",
+        "city": "Doecity",
+        "state": null,
+        "country": "GB",
+        "title": null,
+        "vatId": null,
+        "birthday": null,
+        "addressExtension": null,
+        "bankAccountHolder": null,
+        "bankAccountNumber": null,
+        "bankName": null,
+        "bankSortCode": null,
+        "businessEmailAddress": null,
+        "businessPhoneNumber": null,
+        "department": null,
+        "displayName": null,
+        "doorCode": null,
+        "faxNumber": null,
+        "fiscalCode": null,
+        "gender": null,
+        "jobTitle": null,
+        "middleName": null,
+        "mobilePhoneNumber": null,
+        "phoneNumber": null,
+        "privateEmailAddress": null,
+        "privatePhoneNumber": null,
+        "websiteUrl": null,
+        "emailAddress": "j.doe@doecity.me"
+      },
+      "internalNote": null,
+      "links": [
+        {
+          "rel": "self",
+          "href": "https://devshop.epages.com/rs/shops/wandering-block-6754/customers/632BA7E5-18CB-D0E1-9397-0A0C05B4CD37"
+        },
+        {
+          "rel": "orders",
+          "href": "https://devshop.epages.com/rs/shops/wandering-block-6754/orders?customerId=632BA7E5-18CB-D0E1-9397-0A0C05B4CD37"
+        }
+      ]
+    },
+    {
+      "customerId": "632BA7E5-FFFE-D61F-6EE7-0A0C05B4CD09",
+      "customerNumber": "1001",
+      "creationDate": "2022-09-22T00:10:13Z",
+      "billingAddress": {
+        "company": null,
+        "salutation": null,
+        "firstName": "Elizabeth",
+        "lastName": "Holloway",
+        "street": "62 Ockham Road",
+        "streetDetails": null,
+        "zipCode": "CT15 1RD",
+        "city": "East Studdal",
+        "state": null,
+        "country": "GB",
+        "title": null,
+        "vatId": null,
+        "birthday": null,
+        "addressExtension": null,
+        "bankAccountHolder": null,
+        "bankAccountNumber": null,
+        "bankName": null,
+        "bankSortCode": null,
+        "businessEmailAddress": null,
+        "businessPhoneNumber": null,
+        "department": null,
+        "displayName": null,
+        "doorCode": null,
+        "faxNumber": null,
+        "fiscalCode": null,
+        "gender": null,
+        "jobTitle": null,
+        "middleName": null,
+        "mobilePhoneNumber": null,
+        "phoneNumber": null,
+        "privateEmailAddress": null,
+        "privatePhoneNumber": null,
+        "websiteUrl": null,
+        "emailAddress": "ElizabethHolloway@cuvox.de"
+      },
+      "internalNote": null,
+      "links": [
+        {
+          "rel": "self",
+          "href": "https://devshop.epages.com/rs/shops/wandering-block-6754/customers/632BA7E5-FFFE-D61F-6EE7-0A0C05B4CD09"
+        },
+        {
+          "rel": "orders",
+          "href": "https://devshop.epages.com/rs/shops/wandering-block-6754/orders?customerId=632BA7E5-FFFE-D61F-6EE7-0A0C05B4CD09"
+        }
+      ]
+    },
+    {
+      "customerId": "632BA7E6-57AE-7DA5-B1D8-0A0C05B4CD70",
+      "customerNumber": "1002",
+      "creationDate": "2022-09-22T00:10:14Z",
+      "billingAddress": {
+        "company": null,
+        "salutation": null,
+        "firstName": "Jasmine",
+        "lastName": "Humphreys",
+        "street": "81 Lairg Road",
+        "streetDetails": null,
+        "zipCode": "PE13 0GR",
+        "city": "New Walsoken",
+        "state": null,
+        "country": "GB",
+        "title": null,
+        "vatId": null,
+        "birthday": null,
+        "addressExtension": null,
+        "bankAccountHolder": null,
+        "bankAccountNumber": null,
+        "bankName": null,
+        "bankSortCode": null,
+        "businessEmailAddress": null,
+        "businessPhoneNumber": null,
+        "department": null,
+        "displayName": null,
+        "doorCode": null,
+        "faxNumber": null,
+        "fiscalCode": null,
+        "gender": null,
+        "jobTitle": null,
+        "middleName": null,
+        "mobilePhoneNumber": null,
+        "phoneNumber": null,
+        "privateEmailAddress": null,
+        "privatePhoneNumber": null,
+        "websiteUrl": null,
+        "emailAddress": "JasmineHumphreys@cuvox.de"
+      },
+      "internalNote": null,
+      "links": [
+        {
+          "rel": "self",
+          "href": "https://devshop.epages.com/rs/shops/wandering-block-6754/customers/632BA7E6-57AE-7DA5-B1D8-0A0C05B4CD70"
+        },
+        {
+          "rel": "orders",
+          "href": "https://devshop.epages.com/rs/shops/wandering-block-6754/orders?customerId=632BA7E6-57AE-7DA5-B1D8-0A0C05B4CD70"
+        }
+      ]
+    },
+    {
+      "customerId": "632BA7E6-9078-B31C-470A-0A0C05B4CDCF",
+      "customerNumber": "1003",
+      "creationDate": "2022-09-22T00:10:14Z",
+      "billingAddress": {
+        "company": null,
+        "salutation": null,
+        "firstName": "David",
+        "lastName": "Smith",
+        "street": "1 Stroude Road",
+        "streetDetails": null,
+        "zipCode": "EH26 7ZD",
+        "city": "Silverburn",
+        "state": null,
+        "country": "GB",
+        "title": null,
+        "vatId": null,
+        "birthday": null,
+        "addressExtension": null,
+        "bankAccountHolder": null,
+        "bankAccountNumber": null,
+        "bankName": null,
+        "bankSortCode": null,
+        "businessEmailAddress": null,
+        "businessPhoneNumber": null,
+        "department": null,
+        "displayName": null,
+        "doorCode": null,
+        "faxNumber": null,
+        "fiscalCode": null,
+        "gender": null,
+        "jobTitle": null,
+        "middleName": null,
+        "mobilePhoneNumber": null,
+        "phoneNumber": null,
+        "privateEmailAddress": null,
+        "privatePhoneNumber": null,
+        "websiteUrl": null,
+        "emailAddress": "DavidSmith@einrot.com"
+      },
+      "internalNote": null,
+      "links": [
+        {
+          "rel": "self",
+          "href": "https://devshop.epages.com/rs/shops/wandering-block-6754/customers/632BA7E6-9078-B31C-470A-0A0C05B4CDCF"
+        },
+        {
+          "rel": "orders",
+          "href": "https://devshop.epages.com/rs/shops/wandering-block-6754/orders?customerId=632BA7E6-9078-B31C-470A-0A0C05B4CDCF"
+        }
+      ]
+    },
+    {
+      "customerId": "632BA7E6-4300-C350-7919-0A0C05B4CDBF",
+      "customerNumber": "1004",
+      "creationDate": "2022-09-22T00:10:14Z",
+      "billingAddress": {
+        "company": null,
+        "salutation": null,
+        "firstName": "Katherine",
+        "lastName": "Woodward",
+        "street": "85 Terrick Rd",
+        "streetDetails": null,
+        "zipCode": "HG4 1BT",
+        "city": "Ellingstring",
+        "state": null,
+        "country": "GB",
+        "title": null,
+        "vatId": null,
+        "birthday": null,
+        "addressExtension": null,
+        "bankAccountHolder": null,
+        "bankAccountNumber": null,
+        "bankName": null,
+        "bankSortCode": null,
+        "businessEmailAddress": null,
+        "businessPhoneNumber": null,
+        "department": null,
+        "displayName": null,
+        "doorCode": null,
+        "faxNumber": null,
+        "fiscalCode": null,
+        "gender": null,
+        "jobTitle": null,
+        "middleName": null,
+        "mobilePhoneNumber": null,
+        "phoneNumber": null,
+        "privateEmailAddress": null,
+        "privatePhoneNumber": null,
+        "websiteUrl": null,
+        "emailAddress": "KatherineWoodward@einrot.com"
+      },
+      "internalNote": null,
+      "links": [
+        {
+          "rel": "self",
+          "href": "https://devshop.epages.com/rs/shops/wandering-block-6754/customers/632BA7E6-4300-C350-7919-0A0C05B4CDBF"
+        },
+        {
+          "rel": "orders",
+          "href": "https://devshop.epages.com/rs/shops/wandering-block-6754/orders?customerId=632BA7E6-4300-C350-7919-0A0C05B4CDBF"
+        }
+      ]
+    },
+    {
+      "customerId": "632BA7E6-BD20-2FDC-3378-0A0C05B4CD8E",
+      "customerNumber": "1005",
+      "creationDate": "2022-09-22T00:10:14Z",
+      "billingAddress": {
+        "company": null,
+        "salutation": null,
+        "firstName": "Nicholas",
+        "lastName": "May",
+        "street": "48 Sandyhill Rd",
+        "streetDetails": null,
+        "zipCode": "TA2 0JX",
+        "city": "Fulford",
+        "state": null,
+        "country": "GB",
+        "title": null,
+        "vatId": null,
+        "birthday": null,
+        "addressExtension": null,
+        "bankAccountHolder": null,
+        "bankAccountNumber": null,
+        "bankName": null,
+        "bankSortCode": null,
+        "businessEmailAddress": null,
+        "businessPhoneNumber": null,
+        "department": null,
+        "displayName": null,
+        "doorCode": null,
+        "faxNumber": null,
+        "fiscalCode": null,
+        "gender": null,
+        "jobTitle": null,
+        "middleName": null,
+        "mobilePhoneNumber": null,
+        "phoneNumber": null,
+        "privateEmailAddress": null,
+        "privatePhoneNumber": null,
+        "websiteUrl": null,
+        "emailAddress": "NicholasMay@cuvox.de"
+      },
+      "internalNote": null,
+      "links": [
+        {
+          "rel": "self",
+          "href": "https://devshop.epages.com/rs/shops/wandering-block-6754/customers/632BA7E6-BD20-2FDC-3378-0A0C05B4CD8E"
+        },
+        {
+          "rel": "orders",
+          "href": "https://devshop.epages.com/rs/shops/wandering-block-6754/orders?customerId=632BA7E6-BD20-2FDC-3378-0A0C05B4CD8E"
+        }
+      ]
+    },
+    {
+      "customerId": "632BA7E6-2F21-C482-1565-0A0C05B4CD5C",
+      "customerNumber": "1006",
+      "creationDate": "2022-09-22T00:10:14Z",
+      "billingAddress": {
+        "company": null,
+        "salutation": null,
+        "firstName": "Robert",
+        "lastName": "Lees",
+        "street": "46 Ivy Lane",
+        "streetDetails": null,
+        "zipCode": "KT12 7TE",
+        "city": "Walton-on-Thames",
+        "state": null,
+        "country": "GB",
+        "title": null,
+        "vatId": null,
+        "birthday": null,
+        "addressExtension": null,
+        "bankAccountHolder": null,
+        "bankAccountNumber": null,
+        "bankName": null,
+        "bankSortCode": null,
+        "businessEmailAddress": null,
+        "businessPhoneNumber": null,
+        "department": null,
+        "displayName": null,
+        "doorCode": null,
+        "faxNumber": null,
+        "fiscalCode": null,
+        "gender": null,
+        "jobTitle": null,
+        "middleName": null,
+        "mobilePhoneNumber": null,
+        "phoneNumber": null,
+        "privateEmailAddress": null,
+        "privatePhoneNumber": null,
+        "websiteUrl": null,
+        "emailAddress": "RobertLees@einrot.com"
+      },
+      "internalNote": null,
+      "links": [
+        {
+          "rel": "self",
+          "href": "https://devshop.epages.com/rs/shops/wandering-block-6754/customers/632BA7E6-2F21-C482-1565-0A0C05B4CD5C"
+        },
+        {
+          "rel": "orders",
+          "href": "https://devshop.epages.com/rs/shops/wandering-block-6754/orders?customerId=632BA7E6-2F21-C482-1565-0A0C05B4CD5C"
+        }
+      ]
+    },
+    {
+      "customerId": "632BA7E7-A102-8D27-4B0C-0A0C05B4CD81",
+      "customerNumber": "1007",
+      "creationDate": "2022-09-22T00:10:15Z",
+      "billingAddress": {
+        "company": null,
+        "salutation": null,
+        "firstName": "Madison",
+        "lastName": "Gough",
+        "street": "14 Town Lane",
+        "streetDetails": null,
+        "zipCode": "HP16 2PZ",
+        "city": "South Heath",
+        "state": null,
+        "country": "GB",
+        "title": null,
+        "vatId": null,
+        "birthday": null,
+        "addressExtension": null,
+        "bankAccountHolder": null,
+        "bankAccountNumber": null,
+        "bankName": null,
+        "bankSortCode": null,
+        "businessEmailAddress": null,
+        "businessPhoneNumber": null,
+        "department": null,
+        "displayName": null,
+        "doorCode": null,
+        "faxNumber": null,
+        "fiscalCode": null,
+        "gender": null,
+        "jobTitle": null,
+        "middleName": null,
+        "mobilePhoneNumber": null,
+        "phoneNumber": null,
+        "privateEmailAddress": null,
+        "privatePhoneNumber": null,
+        "websiteUrl": null,
+        "emailAddress": "MadisonGough@einrot.com"
+      },
+      "internalNote": null,
+      "links": [
+        {
+          "rel": "self",
+          "href": "https://devshop.epages.com/rs/shops/wandering-block-6754/customers/632BA7E7-A102-8D27-4B0C-0A0C05B4CD81"
+        },
+        {
+          "rel": "orders",
+          "href": "https://devshop.epages.com/rs/shops/wandering-block-6754/orders?customerId=632BA7E7-A102-8D27-4B0C-0A0C05B4CD81"
+        }
+      ]
+    }
+  ]
+}

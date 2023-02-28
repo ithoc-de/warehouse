@@ -1,5 +1,7 @@
 package de.ithoc.warehouse.domain;
 
+import de.ithoc.warehouse.domain.model.Stock;
+import de.ithoc.warehouse.domain.model.StockMapper;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 
@@ -9,22 +11,18 @@ public class StockMapperTest {
 
     @Test
     public void mapFromStockModelToStockEntity() {
-        de.ithoc.warehouse.domain.Stock stock = getStock(71, "Product Name", 1308);
+        Stock stock = getStock(71, "Product Name", 1308);
 
         StockMapper mapper = Mappers.getMapper(StockMapper.class);
         de.ithoc.warehouse.persistence.Stock stockEntity = mapper.toStockEntity(stock);
 
-        assertEquals("71", stockEntity.getProductNumber());
-        assertEquals("Product Name", stockEntity.getProductName());
-        assertEquals(1308L, stockEntity.getQuantity());
+        assertEquals(1308, stockEntity.getQuantity());
     }
 
-    private de.ithoc.warehouse.domain.Stock getStock(int number, String name, long quantity) {
+    private Stock getStock(int number, String name, long quantity) {
 
-        de.ithoc.warehouse.domain.Stock stock = new de.ithoc.warehouse.domain.Stock();
+        Stock stock = new Stock();
         stock.setQuantity(quantity);
-        stock.setProductName(name);
-        stock.setProductNumber("" + number);
 
         return stock;
     }
@@ -33,8 +31,6 @@ public class StockMapperTest {
 
         de.ithoc.warehouse.persistence.Stock stock = new de.ithoc.warehouse.persistence.Stock();
         stock.setQuantity(quantity);
-        stock.setProductName(name);
-        stock.setProductNumber("" + number);
 
         return stock;
     }

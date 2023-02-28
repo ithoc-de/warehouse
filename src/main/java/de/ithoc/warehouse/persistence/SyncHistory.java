@@ -1,29 +1,27 @@
 package de.ithoc.warehouse.persistence;
 
-import javax.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.List;
 
-/**
- * This Client class represents multi-client capability.
- */
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-public class Client {
+public class SyncHistory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, nullable = false)
-    private String name;
+    private LocalDateTime timestamp;
 
-    @OneToMany
-    private List<Warehouse> warehouses;
+    @ManyToOne
+    private SyncEntity syncEntity;
+
 
 }

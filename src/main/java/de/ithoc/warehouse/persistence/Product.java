@@ -1,29 +1,25 @@
 package de.ithoc.warehouse.persistence;
 
-import javax.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.*;
 import java.util.List;
 
-/**
- * This Client class represents multi-client capability.
- */
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-public class Client {
+public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, nullable = false)
     private String name;
 
     @OneToMany
-    private List<Warehouse> warehouses;
+    private List<Stock> stocks;
 
 }

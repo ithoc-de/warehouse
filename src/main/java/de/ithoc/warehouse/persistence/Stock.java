@@ -5,6 +5,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+
 
 @Entity
 @Getter
@@ -16,9 +19,12 @@ public class Stock {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String productNumber;
-    private String productName;
+    private LocalDateTime validFrom;
+    private LocalDateTime validTo;
+
     private Long quantity;
+
+    private String updatedBy; // this becomes the username
 
 }
 

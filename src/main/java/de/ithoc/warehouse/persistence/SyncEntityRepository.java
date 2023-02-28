@@ -1,11 +1,10 @@
 package de.ithoc.warehouse.persistence;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-@Repository
-public interface StockRepository extends JpaRepository<Stock, Long> {
+public interface SyncEntityRepository extends JpaRepository<SyncEntity, Long> {
 
+    Optional<SyncEntity> findByName(String name);
 }

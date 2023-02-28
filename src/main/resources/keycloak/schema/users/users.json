@@ -1,0 +1,84 @@
+[
+  {
+    "id": "e729bcc2-c23d-400c-a492-b1340c61ee7e",
+    "createdTimestamp": 1676737444727,
+    "username": "oliver",
+    "enabled": true,
+    "totp": false,
+    "emailVerified": true,
+    "firstName": "Oliver",
+    "lastName": "Hock",
+    "email": "oliver.hock@gmail.com",
+    "disableableCredentialTypes": [],
+    "requiredActions": [ "UPDATE_PASSWORD" ],
+    "notBefore": 0,
+    "access": {
+      "manageGroupMembership": true,
+      "view": true,
+      "mapRoles": true,
+      "impersonate": false,
+      "manage": true
+    }
+  },
+  {
+    "id": "8c736290-edf2-4db7-9748-0b82ea22de44",
+    "createdTimestamp": 1676809961804,
+    "username": "oliver.hock+2@gmail.com",
+    "enabled": true,
+    "totp": false,
+    "emailVerified": false,
+    "firstName": "",
+    "lastName": "",
+    "disableableCredentialTypes": [],
+    "requiredActions": [ "UPDATE_PASSWORD" ],
+    "notBefore": 0,
+    "access": {
+      "manageGroupMembership": true,
+      "view": true,
+      "mapRoles": true,
+      "impersonate": false,
+      "manage": true
+    }
+  },
+  {
+    "id": "9d39fb09-f4f4-413a-b55d-a0813ca5ecae",
+    "createdTimestamp": 1676737502370,
+    "username": "paul",
+    "enabled": true,
+    "totp": false,
+    "emailVerified": true,
+    "firstName": "Paul",
+    "lastName": "Rutyna",
+    "email": "oliver.hock+1@gmail.com",
+    "disableableCredentialTypes": [],
+    "requiredActions": [ "UPDATE_PASSWORD" ],
+    "notBefore": 0,
+    "access": {
+      "manageGroupMembership": true,
+      "view": true,
+      "mapRoles": true,
+      "impersonate": false,
+      "manage": true
+    }
+  },
+  {
+    "id": "b56dea2c-ef27-4f0c-920c-1902089c2169",
+    "createdTimestamp": 1676742953230,
+    "username": "solution4europe",
+    "enabled": true,
+    "totp": false,
+    "emailVerified": false,
+    "firstName": "",
+    "lastName": "",
+    "disableableCredentialTypes": [],
+    "requiredActions": [ "UPDATE_PASSWORD" ],
+    "notBefore": 0,
+    "access": {
+      "manageGroupMembership": true,
+      "view": true,
+      "mapRoles": true,
+      "impersonate": false,
+      "manage": true
+    }
+  }
+]

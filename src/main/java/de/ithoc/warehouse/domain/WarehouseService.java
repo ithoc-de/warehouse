@@ -1,5 +1,6 @@
 package de.ithoc.warehouse.domain;
 
+import de.ithoc.warehouse.domain.model.WarehouseMapper;
 import de.ithoc.warehouse.persistence.Client;
 import de.ithoc.warehouse.persistence.ClientRepository;
 import de.ithoc.warehouse.persistence.Warehouse;
@@ -19,7 +20,7 @@ public class WarehouseService {
     }
 
 
-    public List<de.ithoc.warehouse.domain.Warehouse> readWarehouses(de.ithoc.warehouse.domain.Client client) {
+    public List<de.ithoc.warehouse.domain.model.Warehouse> readWarehouses(de.ithoc.warehouse.domain.model.Client client) {
         Client clientEntity = clientRepository.findByName(client.getName());
         List<Warehouse> warehouseEntities = clientEntity.getWarehouses();
 

@@ -1,0 +1,22 @@
+<html xmlns:form="http://www.w3.org/1999/xhtml" lang="de">
+<head>
+    <title>Sync</title></head>
+<body>
+
+<form action="#" th:action="@{/sync-orders}" method="get">
+    <table>
+        <tr>
+            <td>
+                <input type="submit" value="Sync Orders..."/>
+            </td>
+        </tr>
+    </table>
+</form>
+
+<p>
+    <span th:if="${status}"><td th:text="${status}"></td></span>
+    <span th:unless="${!status}">Sync can be done.</td></span>
+</p>
+
+</body>
+</html>
