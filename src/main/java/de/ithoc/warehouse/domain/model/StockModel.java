@@ -5,7 +5,10 @@ import lombok.Data;
 @Data
 public class StockModel {
 
-    private long lineNo;
+    private String productId;
+    private String productName;
+    private String productImage;
+
     private Long quantity;
     private String unit;
 

@@ -24,10 +24,12 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="productModel: ${productModels}" class="fs-2 align-middle">
+        <tr th:each="productModel: ${productModels}" class="fs-4 align-middle">
             <td><img th:src="${productModel.image}"></td>
             <th th:text="${productModel.name}"></th>
-            <td th:text="${productModel.quantity}"></td>
+            <td>
+            <a th:text="${productModel.quantity}" th:href="@{/stock(externalId=${productModel.externalId})}"></a>
+            </td>
             <td th:text="${productModel.number}"></td>
             <td th:text="${productModel.externalId}"></td>
         </tr>
