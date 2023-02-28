@@ -3,7 +3,7 @@
   "customerNumber": "1007",
   "creationDate": "2022-09-22T00:10:15Z",
   "billingAddress": {
-    "company": null,
+    "company": "Scheiderei",
     "salutation": null,
     "firstName": "Madison",
     "lastName": "Gough",

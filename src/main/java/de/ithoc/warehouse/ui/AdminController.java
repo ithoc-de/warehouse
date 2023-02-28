@@ -59,7 +59,7 @@ public class AdminController {
     @GetMapping(path = "/sync-orders")
     public String syncOrders(Model model) {
 
-        syncService.syncOrdersAndCustomers();
+        syncService.syncQuantities();
         model.addAttribute("status", "Orders and customer have been synchronized.");
 
         return "admin/sync-orders";

@@ -18,7 +18,7 @@
       "customerComment": null,
       "internalNote": null,
       "billingAddress": {
-        "company": null,
+        "company": "Company",
         "salutation": null,
         "firstName": "Robert",
         "lastName": "Lees",

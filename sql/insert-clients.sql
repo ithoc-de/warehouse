@@ -1,2 +1,2 @@
-insert into client(name) values('Dev');
-insert into client(name) values('Unknown');
+insert into clientModel(name) values('Dev');
+insert into clientModel(name) values('Unknown');

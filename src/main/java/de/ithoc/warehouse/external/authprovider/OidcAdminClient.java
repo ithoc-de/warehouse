@@ -1,9 +1,8 @@
 package de.ithoc.warehouse.external.authprovider;
 
-import de.ithoc.warehouse.domain.synchronization.MultipleOAuth2UsersExeption;
+import de.ithoc.warehouse.domain.synchronization.MultipleOAuth2UsersException;
 import de.ithoc.warehouse.external.authprovider.schema.token.Token;
 import de.ithoc.warehouse.external.authprovider.schema.users.User;
-import de.ithoc.warehouse.external.authprovider.schema.users.UserInput;
 import lombok.extern.slf4j.Slf4j;
 import org.keycloak.models.UserModel;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,7 +11,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Mono;
 
 import java.net.URI;
 import java.util.List;
@@ -56,7 +54,7 @@ public class OidcAdminClient {
                         .scheme(adminApiUrl.getScheme())
                         .host(adminApiUrl.getHost())
                         .port(adminApiUrl.getPort())
-                        .path("/users")
+                        .path(adminApiUrl.getPath() + "/users")
                         .queryParam("email", email)
                         .queryParam("exact", "true")
                         .build()
@@ -74,7 +72,7 @@ public class OidcAdminClient {
                 String message = "OAuth2 error on provider: " +
                         "Multiple users exist for given e-mail address '" + email + "'";
                 log.error(message);
-                throw new MultipleOAuth2UsersExeption("Ambiguous users exist: " + users.size());
+                throw new MultipleOAuth2UsersException("Ambiguous users exist: " + users.size());
             }
         }
         log.debug("user: {}", user);
@@ -104,14 +102,14 @@ public class OidcAdminClient {
     }
 
 
-    public Void postUser(UserInput userInput, Token token) {
+    public User postUser(User user, Token token) {
 
-        Void block = webClient.post()
+        User block = webClient.post()
                 .uri(adminApiUrl + "/users")
                 .header(HttpHeaders.AUTHORIZATION, "Bearer " + token.getAccessToken())
-                .body(BodyInserters.fromValue(userInput))
+                .body(BodyInserters.fromValue(user))
                 .retrieve()
-                .bodyToMono(Void.class)
+                .bodyToMono(User.class)
                 .block();
         log.debug("bock: {}", block);
 

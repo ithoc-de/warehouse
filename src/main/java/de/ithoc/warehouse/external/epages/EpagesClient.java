@@ -3,6 +3,8 @@ package de.ithoc.warehouse.external.epages;
 import de.ithoc.warehouse.external.epages.schema.customers.Customers;
 import de.ithoc.warehouse.external.epages.schema.orders.Item;
 import de.ithoc.warehouse.external.epages.schema.orders.Orders;
+import de.ithoc.warehouse.external.epages.schema.orders.order.Order;
+import de.ithoc.warehouse.external.epages.schema.products.product.Product;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
@@ -33,6 +35,7 @@ public class EpagesClient {
         this.webClient = webClient;
     }
 
+
     public Orders orders(LocalDateTime fromDateTimeUtc, long page) {
 
         String dateTimeStr = toOrderDeliveredOnDate(fromDateTimeUtc);
@@ -41,7 +44,7 @@ public class EpagesClient {
                         .scheme(apiUri.getScheme())
                         .host(apiUri.getHost())
                         .port(apiUri.getPort())
-                        .path(apiUri.getPath())
+                        .path(apiUri.getPath() + "/orders")
                         .queryParam("updatedFrom", dateTimeStr)
                         .queryParam("deliveredOn", "true")
                         .queryParam("page", page)
@@ -55,6 +58,39 @@ public class EpagesClient {
         return orders;
     }
 
+
+    /**
+     * Load one single order by its id from the shop.
+     *
+     * @param orderId Order ID of the shop
+     * @return Order
+     */
+    public Order order(String orderId) {
+
+        Order order = webClient.get()
+                .uri(uriBuilder -> uriBuilder
+                        .scheme(apiUri.getScheme())
+                        .host(apiUri.getHost())
+                        .port(apiUri.getPort())
+                        .path(apiUri.getPath() + "/orders/" + orderId)
+                        .build())
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + apiKey)
+                .retrieve()
+                .bodyToMono(Order.class)
+                .block();
+        log.debug("order: {}", order);
+
+        return order;
+    }
+
+
+    /**
+     * Load and flatten order items by getting new orders since last synchronisation
+     * and put the underlying items into a flat list.
+     *
+     * @param fromDeliveredOnDateUtc Last synchronisation timestamp in UTC
+     * @return Flat list of order items
+     */
     public List<Item> orderItems(LocalDateTime fromDeliveredOnDateUtc) {
 
         /*
@@ -64,7 +100,7 @@ public class EpagesClient {
         Orders orders = orders(fromDeliveredOnDateUtc, 1);
         log.debug("{}", orders);
 
-        if(orders == null) {
+        if(orders == null || orders.getResults() == null) {
             // if no order items are available we are done
             return List.of();
         }
@@ -74,14 +110,14 @@ public class EpagesClient {
          * Also consider the order status and the duration, means only delivered orders
          * from last order load are filtered and saved to this warehouse.
          */
-        List<Item> items = flatItems(fromDeliveredOnDateUtc, orders);
+        List<Item> items = flattenOrderItems(fromDeliveredOnDateUtc, orders);
         log.debug("items: {}", items);
 
         return items;
     }
 
 
-    private List<Item> flatItems(LocalDateTime fromDateTimeUtc, Orders orders) {
+    private List<Item> flattenOrderItems(LocalDateTime fromDateTimeUtc, Orders orders) {
         List<Item> items = new ArrayList<>(orders.getItems());
         long pages = numberOfPages(orders.getResults(), orders.getResultsPerPage());
         for (int pageCount = 2; pageCount <= pages; pageCount++) {
@@ -107,6 +143,19 @@ public class EpagesClient {
         log.debug("customers: {}", customers);
 
         return customers;
+    }
+
+
+    public Product product(String productId) {
+        Product product = webClient.get()
+                .uri(apiUri + "/products/" + productId)
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + apiKey)
+                .retrieve()
+                .bodyToMono(Product.class)
+                .block();
+        log.debug("product: {}", product);
+
+        return product;
     }
 
 
