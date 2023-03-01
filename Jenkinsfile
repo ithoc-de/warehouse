@@ -9,7 +9,7 @@ pipeline {
         stage('Build Image') {
             steps {
                 script {
-                    docker.build $DOCKER_IMAGE
+                    docker.build ${DOCKER_IMAGE}
                 }
                 sh 'docker images'
             }
@@ -17,7 +17,7 @@ pipeline {
         stage('Push Image') {
             steps {
                 sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-                sh 'docker push $DOCKERHUB_IMAGE'
+                sh 'docker push ${DOCKERHUB_IMAGE}'
             }
         }
     }
