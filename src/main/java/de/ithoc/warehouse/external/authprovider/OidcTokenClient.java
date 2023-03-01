@@ -1,6 +1,6 @@
 package de.ithoc.warehouse.external.authprovider;
 
-import de.ithoc.warehouse.external.authprovider.schema.token.Token;
+import de.ithoc.warehouse.external.schema.keycloak.token.Token;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
