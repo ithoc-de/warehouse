@@ -15,8 +15,10 @@ pipeline {
         }
         stage('Push Image') {
             steps {
-                docker.withRegistry('docker.io', registryCredential) {
-                    docker.image(registry + ":$BUILD_NUMBER").push()
+                script {
+                    docker.withRegistry('docker.io', registryCredential) {
+                        docker.image(registry + ":$BUILD_NUMBER").push()
+                    }
                 }
             }
         }
