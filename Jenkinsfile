@@ -1,6 +1,7 @@
+def DOCKER_IMAGE = "olihock/s4e-warehouse" + ":$BUILD_NUMBER"
+
 pipeline {
     environment {
-        DOCKERHUB_IMAGE = "olihock/s4e-warehouse" + ":$BUILD_NUMBER"
         DOCKERHUB_CREDENTIALS = credentials('e8dfdc5d-790b-4f34-9e5a-71a9af034bdb')
     }
     agent any
@@ -8,7 +9,7 @@ pipeline {
         stage('Build Image') {
             steps {
                 script {
-                    docker.build $DOCKERHUB_IMAGE
+                    docker.build $DOCKER_IMAGE
                 }
                 sh 'docker images'
             }
