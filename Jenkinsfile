@@ -7,7 +7,7 @@ pipeline {
         stage('Build Image') {
             steps {
                 script {
-                    docker.build "olihock/s4e-warehouse" + ":$BUILD_NUMBER"
+                    docker.build "olihock/s4e-warehouse" + ":$BRANCH_NAME" + "-$BUILD_NUMBER"
                 }
                 sh 'docker images'
             }
@@ -15,7 +15,7 @@ pipeline {
         stage('Push Image') {
             steps {
                 sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-                sh 'docker push "olihock/s4e-warehouse:$BUILD_NUMBER"'
+                sh 'docker push "olihock/s4e-warehouse:$BRANCH_NAME-$BUILD_NUMBER"'
             }
         }
     }
