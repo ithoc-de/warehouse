@@ -1,8 +1,8 @@
 package de.ithoc.warehouse.ui;
 
 import de.ithoc.warehouse.external.epages.EpagesClient;
-import de.ithoc.warehouse.external.epages.schema.customers.Customers;
-import de.ithoc.warehouse.external.epages.schema.customers.Item;
+import de.ithoc.warehouse.external.schema.epages.customers.Customers;
+import de.ithoc.warehouse.external.schema.epages.customers.Item;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

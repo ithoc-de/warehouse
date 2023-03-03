@@ -1,10 +1,10 @@
 package de.ithoc.warehouse.external.epages;
 
-import de.ithoc.warehouse.external.epages.schema.customers.Customers;
-import de.ithoc.warehouse.external.epages.schema.orders.Item;
-import de.ithoc.warehouse.external.epages.schema.orders.Orders;
-import de.ithoc.warehouse.external.epages.schema.orders.order.Order;
-import de.ithoc.warehouse.external.epages.schema.products.product.Product;
+import de.ithoc.warehouse.external.schema.epages.customers.Customers;
+import de.ithoc.warehouse.external.schema.epages.orders.Item;
+import de.ithoc.warehouse.external.schema.epages.orders.Orders;
+import de.ithoc.warehouse.external.schema.epages.orders.order.Order;
+import de.ithoc.warehouse.external.schema.epages.product.Product;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;

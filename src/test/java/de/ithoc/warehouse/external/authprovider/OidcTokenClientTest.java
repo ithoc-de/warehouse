@@ -1,6 +1,6 @@
 package de.ithoc.warehouse.external.authprovider;
 
-import de.ithoc.warehouse.external.authprovider.schema.token.Token;
+import de.ithoc.warehouse.external.schema.keycloak.token.Token;
 import mockwebserver3.MockResponse;
 import mockwebserver3.MockWebServer;
 import org.junit.jupiter.api.AfterEach;

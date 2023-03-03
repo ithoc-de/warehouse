@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: warehouse
+spec:
+  containers:
+    - name: warehouse
+      image: warehouse:latest
+      ports:
+        - containerPort: 7001
