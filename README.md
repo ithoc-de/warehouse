@@ -30,8 +30,8 @@ kubectl rollout restart deployment s4e-warehouse
 
 kubectl create -f kubernetes.yaml
 kubectl get pods
-kubectl describe pod s4e-warehouse
-kubectl describe service s4e-warehouse
+kubectl describe pod warehouse
+kubectl describe service warehouse
 
 kubectl apply -f webblog-config.yaml
 kubectl delete -n default configmap webblog-config

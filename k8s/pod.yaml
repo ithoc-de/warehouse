@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: s4e-warehouse-pod
+  name: warehouse
 spec:
   containers:
-    - name: s4e-warehouse-container
-      image: olihock/s4e-warehouse:dockerization-10
+    - name: warehouse
+      image: warehouse:latest
       ports:
         - containerPort: 7001

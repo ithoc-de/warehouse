@@ -4,18 +4,22 @@ pipeline {
     }
     agent any
     stages {
-        stage('Build Image') {
+        stage('Build local image') {
             steps {
                 script {
-                    docker.build "olihock/s4e-warehouse" + ":$BRANCH_NAME" + "-$BUILD_NUMBER"
+                    docker.build "olihock/warehouse" + ":$BRANCH_NAME" + "-$BUILD_NUMBER"
                 }
-                sh 'docker images'
+                sh 'docker images | grep warehouse'
             }
         }
-        stage('Push Image') {
+        stage('Login to artifactory') {
             steps {
                 sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-                sh 'docker push "olihock/s4e-warehouse:$BRANCH_NAME-$BUILD_NUMBER"'
+            }
+        }
+        stage('Push image to artifactory') {
+            steps {
+                sh 'docker push "olihock/warehouse:$BRANCH_NAME-$BUILD_NUMBER"'
             }
         }
     }

@@ -1,9 +1,13 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: webblog-config
+  name: warehouse
   labels:
-    app: webblog-service
-    tier: webblog-service
+    app: warehouse
+    tier: warehouse
 data:
-  SPRING_PROFILES_ACTIVE: dev
+  DB_HOST: localhost
+  DB_PORT: "5432"
+  EPAGES_API_KEY: ePages-API-Key
+  KEYCLOAK_HOST: localhost
+  KEYCLOAK_PORT: "7002"

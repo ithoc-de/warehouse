@@ -3,30 +3,30 @@ kind: Deployment
 metadata:
   creationTimestamp: null
   labels:
-    app: s4e-warehouse
-  name: s4e-warehouse
+    app: warehouse
+  name: warehouse
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: s4e-warehouse
+      app: warehouse
   strategy: {}
   template:
     metadata:
       creationTimestamp: null
       labels:
-        app: s4e-warehouse
+        app: warehouse
     spec:
       containers:
-        - name: s4e-warehouse
-          image: s4e-warehouse:latest
-          imagePullPolicy: IfNotPresent
+        - name: warehouse
+          image: warehouse:latest
+          imagePullPolicy: Never
           ports:
             - containerPort: 7001
               hostPort: 7001
-#          envFrom:
-#            - configMapRef:
-#                name: webblog-config
+          envFrom:
+            - configMapRef:
+                name: warehouse
 #            - secretRef:
 #                name: webblog-secrets
 status: {}
