@@ -4,9 +4,6 @@ VOLUME ~/.m2:/root/.m2
 WORKDIR /app
 
 COPY target/warehouse.jar .
-#COPY src .
-#COPY pom.xml .
-#RUN mvn clean package -DskipTests
 
 EXPOSE 7001
 
@@ -16,5 +13,4 @@ ENV EPAGES_API_KEY=${EPAGES_API_KEY}
 ENV KEYCLOAK_HOST=${KEYCLOAK_HOST}
 ENV KEYCLOAK_PORT=${KEYCLOAK_PORT}
 
-#ENTRYPOINT exec java ${JAVA_OPTS} org.springframework.boot.loader.JarLauncher
 ENTRYPOINT ["java","-jar","warehouse.jar"]

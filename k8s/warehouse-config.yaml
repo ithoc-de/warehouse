@@ -6,8 +6,8 @@ metadata:
     app: warehouse
     tier: warehouse
 data:
-  DB_HOST: localhost
+  DB_HOST: postgres
   DB_PORT: "5432"
   EPAGES_API_KEY: ePages-API-Key
-  KEYCLOAK_HOST: localhost
-  KEYCLOAK_PORT: "7002"
+  KEYCLOAK_HOST: keycloak
+  KEYCLOAK_PORT: "8080"
