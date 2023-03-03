@@ -1,10 +1,10 @@
 package de.ithoc.warehouse.external.epages;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.ithoc.warehouse.external.epages.schema.customers.Customers;
-import de.ithoc.warehouse.external.epages.schema.orders.Orders;
-import de.ithoc.warehouse.external.epages.schema.orders.order.Order;
-import de.ithoc.warehouse.external.epages.schema.products.product.Product;
+import de.ithoc.warehouse.external.schema.epages.customers.Customers;
+import de.ithoc.warehouse.external.schema.epages.orders.Orders;
+import de.ithoc.warehouse.external.schema.epages.orders.order.Order;
+import de.ithoc.warehouse.external.schema.epages.product.Product;
 import mockwebserver3.MockResponse;
 import mockwebserver3.MockWebServer;
 import mockwebserver3.RecordedRequest;

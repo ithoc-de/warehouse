@@ -57,10 +57,14 @@ public class WarehouseController {
     public String minus(Model model, @ModelAttribute StockModel stockModel, @RequestParam String arithmetic) {
         Long quantity = stockModel.getQuantity();
         switch (arithmetic) {
-            case "minus" -> quantity -= 1;
-            case "plus" -> quantity += 1;
-            default -> {
-            }
+            case "minus":
+                quantity -= 1;
+                break;
+            case "plus":
+                quantity += 1;
+                break;
+            default:
+                break;
         }
         productService.writeQuantity(quantity, stockModel.getProductId());
         stockModel.setQuantity(quantity);

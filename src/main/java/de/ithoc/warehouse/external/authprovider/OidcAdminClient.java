@@ -1,8 +1,8 @@
 package de.ithoc.warehouse.external.authprovider;
 
 import de.ithoc.warehouse.domain.synchronization.MultipleOAuth2UsersException;
-import de.ithoc.warehouse.external.authprovider.schema.token.Token;
-import de.ithoc.warehouse.external.authprovider.schema.users.User;
+import de.ithoc.warehouse.external.schema.keycloak.token.Token;
+import de.ithoc.warehouse.external.schema.keycloak.users.User;
 import lombok.extern.slf4j.Slf4j;
 import org.keycloak.models.UserModel;
 import org.springframework.beans.factory.annotation.Value;

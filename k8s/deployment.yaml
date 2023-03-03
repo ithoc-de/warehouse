@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: warehouse
+  name: warehouse
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: warehouse
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: warehouse
+    spec:
+      containers:
+        - name: warehouse
+          image: warehouse:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 7001
+              hostPort: 7001
+          envFrom:
+            - configMapRef:
+                name: warehouse
+#            - secretRef:
+#                name: webblog-secrets
+status: {}

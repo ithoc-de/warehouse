@@ -2,8 +2,8 @@ package de.ithoc.warehouse.domain;
 
 import de.ithoc.warehouse.domain.model.StockModel;
 import de.ithoc.warehouse.external.epages.EpagesClient;
-import de.ithoc.warehouse.external.epages.schema.products.product.Image;
-import de.ithoc.warehouse.external.epages.schema.products.product.Product;
+import de.ithoc.warehouse.external.schema.epages.product.Image;
+import de.ithoc.warehouse.external.schema.epages.product.Product;
 import de.ithoc.warehouse.persistence.repositories.ProductRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

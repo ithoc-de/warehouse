@@ -2,8 +2,8 @@ package de.ithoc.warehouse.external.authprovider;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.ithoc.warehouse.domain.synchronization.MultipleOAuth2UsersException;
-import de.ithoc.warehouse.external.authprovider.schema.token.Token;
-import de.ithoc.warehouse.external.authprovider.schema.users.User;
+import de.ithoc.warehouse.external.schema.keycloak.token.Token;
+import de.ithoc.warehouse.external.schema.keycloak.users.User;
 import mockwebserver3.MockResponse;
 import mockwebserver3.MockWebServer;
 import mockwebserver3.RecordedRequest;
