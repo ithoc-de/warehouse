@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: webblog-config
+  labels:
+    app: webblog-service
+    tier: webblog-service
+data:
+  SPRING_PROFILES_ACTIVE: dev

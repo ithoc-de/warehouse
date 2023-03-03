@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: s4e-warehouse
+  name: s4e-warehouse
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: s4e-warehouse
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: s4e-warehouse
+    spec:
+      containers:
+        - name: s4e-warehouse
+          image: s4e-warehouse:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 7001
+              hostPort: 7001
+#          envFrom:
+#            - configMapRef:
+#                name: webblog-config
+#            - secretRef:
+#                name: webblog-secrets
+status: {}

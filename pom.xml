@@ -9,10 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>de.ithoc</groupId>
-    <artifactId>s4e-warehouse</artifactId>
+    <artifactId>warehouse</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>s4e-warehouse</name>
-    <description>s4e-warehouse</description>
+    <name>warehouse</name>
 
     <properties>
         <java.version>11</java.version>

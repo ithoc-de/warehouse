@@ -34,7 +34,7 @@ services:
     networks:
       - solution4europe
   application:
-    build: .
+    build: ..
     depends_on:
       - postgres
     container_name: warehouse
