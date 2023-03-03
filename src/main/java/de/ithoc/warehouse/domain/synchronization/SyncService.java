@@ -2,13 +2,13 @@ package de.ithoc.warehouse.domain.synchronization;
 
 import de.ithoc.warehouse.external.authprovider.OidcAdminClient;
 import de.ithoc.warehouse.external.authprovider.OidcTokenClient;
-import de.ithoc.warehouse.external.authprovider.schema.token.Token;
-import de.ithoc.warehouse.external.authprovider.schema.users.Attributes;
-import de.ithoc.warehouse.external.authprovider.schema.users.User;
+import de.ithoc.warehouse.external.schema.keycloak.token.Token;
+import de.ithoc.warehouse.external.schema.keycloak.users.Attributes;
+import de.ithoc.warehouse.external.schema.keycloak.users.User;
 import de.ithoc.warehouse.external.epages.EpagesClient;
-import de.ithoc.warehouse.external.epages.schema.orders.Item;
-import de.ithoc.warehouse.external.epages.schema.orders.order.Order;
-import de.ithoc.warehouse.external.epages.schema.products.product.Image;
+import de.ithoc.warehouse.external.schema.epages.orders.Item;
+import de.ithoc.warehouse.external.schema.epages.orders.order.Order;
+import de.ithoc.warehouse.external.schema.epages.product.Image;
 import de.ithoc.warehouse.persistence.entities.Package;
 import de.ithoc.warehouse.persistence.entities.*;
 import de.ithoc.warehouse.persistence.repositories.*;
@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -90,7 +91,7 @@ public class SyncService {
 
             order.getLineItemContainer().getProductLineItems().forEach(productLineItem -> {
                 Product product = checkForProduct(productLineItem.getProductId(), productLineItem.getName());
-                de.ithoc.warehouse.external.epages.schema.products.product.Product shopProduct =
+                de.ithoc.warehouse.external.schema.epages.product.Product shopProduct =
                         loadProduct(productLineItem.getProductId());
                 product.setNumber(shopProduct.getProductNumber());
                 Optional<Image> imageOptional = shopProduct.getImages().stream()
@@ -231,15 +232,15 @@ public class SyncService {
         log.debug("orderItems: {}", orderItems);
         List<Order> orders = orderItems.stream()
                 .map(orderItem -> epagesClient.order(orderItem.getOrderId()))
-                .toList();
+                .collect(Collectors.toList());
         log.debug("orders: {}", orders);
 
         return orders;
     }
 
 
-    de.ithoc.warehouse.external.epages.schema.products.product.Product loadProduct(String productId) {
-        de.ithoc.warehouse.external.epages.schema.products.product.Product product =
+    de.ithoc.warehouse.external.schema.epages.product.Product loadProduct(String productId) {
+        de.ithoc.warehouse.external.schema.epages.product.Product product =
                 epagesClient.product(productId);
         log.debug("product: {}", product);
 
@@ -314,7 +315,7 @@ public class SyncService {
 
 
     User checkForUser(Order order) {
-        de.ithoc.warehouse.external.epages.schema.orders.order.BillingAddress billingAddress = order.getBillingAddress();
+        de.ithoc.warehouse.external.schema.epages.orders.order.BillingAddress billingAddress = order.getBillingAddress();
         String company = billingAddress.getCompany();
         String emailAddress = billingAddress.getEmailAddress();
         String firstName = billingAddress.getFirstName();

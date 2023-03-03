@@ -3,13 +3,13 @@ package de.ithoc.warehouse.domain.synchronization;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.ithoc.warehouse.external.authprovider.OidcAdminClient;
 import de.ithoc.warehouse.external.authprovider.OidcTokenClient;
-import de.ithoc.warehouse.external.authprovider.schema.token.Token;
-import de.ithoc.warehouse.external.authprovider.schema.users.Attributes;
-import de.ithoc.warehouse.external.authprovider.schema.users.User;
+import de.ithoc.warehouse.external.schema.keycloak.token.Token;
+import de.ithoc.warehouse.external.schema.keycloak.users.Attributes;
+import de.ithoc.warehouse.external.schema.keycloak.users.User;
 import de.ithoc.warehouse.external.epages.EpagesClient;
-import de.ithoc.warehouse.external.epages.schema.orders.Item;
-import de.ithoc.warehouse.external.epages.schema.orders.Orders;
-import de.ithoc.warehouse.external.epages.schema.orders.order.Order;
+import de.ithoc.warehouse.external.schema.epages.orders.Item;
+import de.ithoc.warehouse.external.schema.epages.orders.Orders;
+import de.ithoc.warehouse.external.schema.epages.orders.order.Order;
 import de.ithoc.warehouse.persistence.entities.Package;
 import de.ithoc.warehouse.persistence.entities.*;
 import de.ithoc.warehouse.persistence.repositories.*;
@@ -506,13 +506,13 @@ class SyncServiceTest {
     @Test
     public void loadProduct() {
         String productId = "PRODUCT-ID";
-        de.ithoc.warehouse.external.epages.schema.products.product.Product product =
-                new de.ithoc.warehouse.external.epages.schema.products.product.Product();
+        de.ithoc.warehouse.external.schema.epages.product.Product product =
+                new de.ithoc.warehouse.external.schema.epages.product.Product();
         product.setProductId(productId);
         product.setProductNumber("1001");
         when(epagesClient.product(eq(productId))).thenReturn(product);
 
-        de.ithoc.warehouse.external.epages.schema.products.product.Product actualProduct =
+        de.ithoc.warehouse.external.schema.epages.product.Product actualProduct =
                 syncService.loadProduct(productId);
 
         assertThat(actualProduct.getProductId()).isEqualTo(productId);
