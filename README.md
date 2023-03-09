@@ -7,13 +7,12 @@
 eval $(minikube docker-env)
 minikube docker-env
 
+minikube start
 minikube dashboard &
 
-minikube service --all
+#minikube service --all
 
-minikube start
-minikube stop
-
+#minikube stop
 ```
 
 ## Scripting
@@ -25,9 +24,11 @@ k8s/k8s-delete.sh
 ```
 
 ## PostgreSQL Client
+```
 sudo apt install postgresql-client-12
 export POSTGRES_PASSWORD
-
+kubectl port-forward --namespace default svc/postgres 5432:5432
+```
 ```
 psql --host 127.0.0.1 -U postgres -d postgres -p 5432
 \list
