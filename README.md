@@ -1,6 +1,42 @@
 
 # Deployment
 
+## Minikube
+**Use the Docker daemon in Minikube**
+```
+eval $(minikube docker-env)
+minikube docker-env
+
+minikube dashboard &
+
+minikube service --all
+
+minikube start
+minikube stop
+
+```
+
+## Scripting
+```
+docker/docker-pull.sh
+docker/docker-image.sh
+k8s/k8s-apply.sh
+k8s/k8s-delete.sh
+```
+
+## PostgreSQL Client
+sudo apt install postgresql-client-12
+export POSTGRES_PASSWORD
+
+```
+psql --host 127.0.0.1 -U postgres -d postgres -p 5432
+\list
+\create database keycloak
+\connect warehouse
+\dt
+```
+
+
 ## Docker
 ```
 docker build --tag webblog-service:0.0.1-SNAPSHOT .
@@ -42,17 +78,3 @@ kubectl create -f kubernetes-service.yaml
 
 ```
 
-## Minikube
-**Use the Docker daemon in Minikube**
-```
-eval $(minikube docker-env)
-minikube docker-env
-
-minikube dashboard &
-
-minikube service --all
-
-minikube start
-minikube stop
-
-```
