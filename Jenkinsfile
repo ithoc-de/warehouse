@@ -6,6 +6,7 @@ pipeline {
     stages {
         stage('Build local image') {
             steps {
+                sh 'mvn clean install -DskipTests'
                 script {
                     docker.build "olihock/warehouse" + ":$BRANCH_NAME" + "-$BUILD_NUMBER"
                 }
