@@ -2,11 +2,7 @@ kind: PersistentVolume
 apiVersion: v1
 metadata:
   name: postgres
-  labels:
-    type: local
-    app: postgres
 spec:
-  storageClassName: manual
   capacity:
     storage: 5Gi
   accessModes:
@@ -18,11 +14,7 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: postgres
-  labels:
-    app: postgres
-    tier: database
 spec:
-  storageClassName: manual
   accessModes:
     - ReadWriteMany
   resources:
