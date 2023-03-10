@@ -21,9 +21,7 @@ pipeline {
         }
         stage('Build local image') {
             steps {
-                docker {
-                    build "olihock/warehouse" + ":$BRANCH_NAME" + "-$BUILD_NUMBER"
-                }
+                build "olihock/warehouse" + ":$BRANCH_NAME" + "-$BUILD_NUMBER"
                 sh 'docker images | grep warehouse'
             }
         }
