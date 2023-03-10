@@ -20,7 +20,6 @@ spec:
       containers:
         - name: keycloak
           image: quay.io/keycloak/keycloak:19.0.3
-          imagePullPolicy: Never
 #          ports:
 #            - containerPort: 8080
           args: ["start-dev"]
