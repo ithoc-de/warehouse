@@ -9,9 +9,17 @@ pipeline {
         }
     }
     stages {
-        stage('Build local image') {
+        stage('Package application artifact') {
             steps {
                 sh 'mvn -B clean package'
+            }
+        }
+        stage('Initialize docker environment'){
+            def dockerHome = tool 'docker'
+            env.PATH = "${dockerHome}/bin:${env.PATH}"
+        }
+        stage('Build local image') {
+            steps {
                 script {
                     docker.build "olihock/warehouse" + ":$BRANCH_NAME" + "-$BUILD_NUMBER"
                 }
