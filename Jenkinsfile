@@ -2,11 +2,16 @@ pipeline {
     environment {
         DOCKERHUB_CREDENTIALS = credentials('dockerhub')
     }
-    agent any
+    agent {
+        docker {
+            image 'maven:3.9.0-eclipse-temurin-11'
+            args '-v /root/.m2:/root/.m2'
+        }
+    }
     stages {
         stage('Build local image') {
             steps {
-                sh 'mvn clean install -DskipTests'
+                sh 'mvn -B clean package'
                 script {
                     docker.build "olihock/warehouse" + ":$BRANCH_NAME" + "-$BUILD_NUMBER"
                 }
