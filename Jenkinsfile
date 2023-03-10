@@ -2,30 +2,26 @@ pipeline {
     environment {
         DOCKERHUB_CREDENTIALS = credentials('dockerhub')
     }
-    agent {
-        docker {
-            image 'maven:3.9.0-eclipse-temurin-11'
-            args '-v /root/.m2:/root/.m2'
-        }
-    }
+    agent any
     stages {
         stage('Package application artifact') {
             steps {
-                sh 'mvn -B clean package'
+                sh 'mvn -B -DskipTests clean package'
             }
         }
-        stage('Initialize docker environment') {
+        stage('Test application units') {
             steps {
-                script {
-                    def dockerHome = tool 'docker'
-                    env.PATH = "${dockerHome}/bin:${env.PATH}"
-                }
+                sh 'mvn -B test'
             }
         }
         stage('Build local image') {
             steps {
-                script {
-                    docker.build "olihock/warehouse" + ":$BRANCH_NAME" + "-$BUILD_NUMBER"
+                agent {
+                    docker {
+                        image 'maven:3.9.0-eclipse-temurin-11'
+                        args '-v /root/.m2:/root/.m2'
+                        build "olihock/warehouse" + ":$BRANCH_NAME" + "-$BUILD_NUMBER"
+                    }
                 }
                 sh 'docker images | grep warehouse'
             }
