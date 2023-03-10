@@ -3,11 +3,11 @@ kind: Service
 metadata:
   name: warehouse
 spec:
-  type: NodePort
+  type: LoadBalancer
   selector:
     app: warehouse
   ports:
       - protocol: "TCP"
         port: 7001
         targetPort: 7001
-        nodePort: 30001
+#        nodePort: 30001

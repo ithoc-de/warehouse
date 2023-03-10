@@ -5,13 +5,12 @@
 *Use the Docker daemon in Minikube*
 ```
 eval $(minikube docker-env)
-minikube docker-env
-
 minikube start
+minikube tunnel
 minikube dashboard &
 
+#minikube docker-env
 #minikube service --all
-
 #minikube stop
 ```
 
