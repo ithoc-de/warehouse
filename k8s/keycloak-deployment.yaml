@@ -1,27 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  creationTimestamp: null
+  name: keycloak
   labels:
     app: keycloak
-  name: keycloak
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: keycloak
-  strategy: {}
   template:
     metadata:
-      creationTimestamp: null
+      name: keycloak
       labels:
         app: keycloak
     spec:
       containers:
         - name: keycloak
           image: quay.io/keycloak/keycloak:19.0.3
-#          ports:
-#            - containerPort: 8080
+          ports:
+            - containerPort: 8080
           args: ["start-dev"]
           envFrom:
             - configMapRef:
@@ -30,4 +28,3 @@ spec:
 #            httpGet:
 #              path: /realms/master
 #              port: 8080
-status: {}

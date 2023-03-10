@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: postgres
+  name: db-keycloak
 spec:
   type: LoadBalancer
   selector:
-    app: postgres
+    app: db-keycloak
   ports:
-    - port: 5432
+    - port: 7432
       targetPort: 5432

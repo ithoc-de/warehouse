@@ -17,9 +17,9 @@ spec:
       containers:
         - name: warehouse
           image: warehouse:latest
-          imagePullPolicy: Never
+          imagePullPolicy: Never  # needed for images tagged with latest
           ports:
-            - containerPort: 7001
+            - containerPort: 7002
           envFrom:
             - configMapRef:
                 name: warehouse

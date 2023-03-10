@@ -1,36 +1,34 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: postgres
+  name: db-warehouse
   labels:
-    app: postgres
-    tier: database
+    app: db-warehouse
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: postgres
+      app: db-warehouse
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: postgres
-        tier: database
+        app: db-warehouse
     spec:
       containers:
-        - name: postgres
+        - name: db-warehouse
           image: postgres:15.2
           ports:
             - containerPort: 5432
-              name: postgres
+              name: db-warehouse
           envFrom:
             - configMapRef:
-                name: postgres
+                name: db-warehouse
           volumeMounts:
             - mountPath: /var/lib/postgresql/data
-              name: postgres
+              name: db-warehouse
       volumes:
-        - name: postgres
+        - name: db-warehouse
           persistentVolumeClaim:
-            claimName: postgres
+            claimName: db-warehouse

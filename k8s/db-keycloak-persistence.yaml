@@ -1,7 +1,9 @@
 kind: PersistentVolume
 apiVersion: v1
 metadata:
-  name: postgres
+  name: db-keycloak
+  labels:
+    app: db-keycloak
 spec:
   capacity:
     storage: 5Gi
@@ -13,7 +15,9 @@ spec:
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: postgres
+  name: db-keycloak
+  labels:
+    app: db-keycloak
 spec:
   accessModes:
     - ReadWriteMany

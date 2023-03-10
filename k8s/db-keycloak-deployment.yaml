@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db-keycloak
+  labels:
+    app: db-keycloak
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: db-keycloak
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: db-keycloak
+    spec:
+      containers:
+        - name: db-keycloak
+          image: postgres:15.2
+          ports:
+            - containerPort: 5432
+              name: db-keycloak
+          envFrom:
+            - configMapRef:
+                name: db-keycloak
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: db-keycloak
+      volumes:
+        - name: db-keycloak
+          persistentVolumeClaim:
+            claimName: db-keycloak

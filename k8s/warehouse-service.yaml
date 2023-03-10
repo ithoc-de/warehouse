@@ -8,6 +8,6 @@ spec:
     app: warehouse
   ports:
       - protocol: "TCP"
-        port: 7001
-        targetPort: 7001
-#        nodePort: 30001
+        port: 7002
+        targetPort: 7002
+#        nodePort: 30002
