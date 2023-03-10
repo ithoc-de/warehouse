@@ -20,6 +20,8 @@ docker/docker-pull.sh
 docker/docker-image.sh
 k8s/k8s-apply.sh
 k8s/k8s-delete.sh
+# Open port for pgAdmin access
+kubectl port-forward --namespace default svc/postgres 5432:5432
 ```
 
 ## PostgreSQL Client

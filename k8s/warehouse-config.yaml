@@ -11,3 +11,4 @@ data:
   EPAGES_API_KEY: ePages-API-Key
   KEYCLOAK_HOST: keycloak
   KEYCLOAK_PORT: "7002"
+  KEYCLOAK_REALM: Solution4Europe
