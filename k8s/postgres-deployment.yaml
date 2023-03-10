@@ -21,7 +21,6 @@ spec:
       containers:
         - name: postgres
           image: postgres:15.2
-            #          imagePullPolicy: Never
           ports:
             - containerPort: 5432
               name: postgres
@@ -35,5 +34,3 @@ spec:
         - name: postgres
           persistentVolumeClaim:
             claimName: postgres
-
-
