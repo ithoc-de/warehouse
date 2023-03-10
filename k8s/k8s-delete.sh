@@ -2,7 +2,7 @@ kubectl delete -n default service warehouse
 kubectl delete -n default deployment warehouse
 kubectl delete configmap warehouse
 
-kubectl delete ingress keycloak
+#kubectl delete ingress keycloak
 kubectl delete -n default service keycloak
 kubectl delete -n default deployment keycloak
 kubectl delete configmap keycloak

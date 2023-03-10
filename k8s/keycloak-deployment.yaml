@@ -23,12 +23,11 @@ spec:
           imagePullPolicy: Never
           ports:
             - containerPort: 8080
-              hostPort: 7002
           args: ["start-dev"]
           envFrom:
             - configMapRef:
                 name: keycloak
-#           readinessProbe:
+#          readinessProbe:
 #            httpGet:
 #              path: /realms/master
 #              port: 8080

@@ -2,7 +2,7 @@
 # Deployment
 
 ## Minikube
-**Use the Docker daemon in Minikube**
+*Use the Docker daemon in Minikube*
 ```
 eval $(minikube docker-env)
 minikube docker-env
@@ -26,7 +26,7 @@ k8s/k8s-delete.sh
 ## PostgreSQL Client
 ```
 sudo apt install postgresql-client-12
-export POSTGRES_PASSWORD
+export POSTGRES_PASSWORD=dev
 kubectl port-forward --namespace default svc/postgres 5432:5432
 ```
 ```
