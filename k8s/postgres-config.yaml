@@ -5,5 +5,6 @@ metadata:
 data:
   POSTGRES_USER: postgres
   POSTGRES_PASSWORD: dev
+  POSTGRES_DB: warehouse
   init.sql: | 
     CREATE DATABASE IF NOT EXISTS keycloak;
