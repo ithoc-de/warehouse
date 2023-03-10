@@ -4,8 +4,9 @@ services:
     image: postgres:15.2
     container_name: postgres
     ports:
-      - "5432:5432"
+      - "7432:5432"
     environment:
+#      POSTGRES_DB: keycloak
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: dev
     volumes:
@@ -42,7 +43,7 @@ services:
       - "7001:7001"
     environment:
       DB_HOST: postgres
-      DB_PORT: 3306
+      DB_PORT: 5432
     networks:
       - solution4europe
 networks:

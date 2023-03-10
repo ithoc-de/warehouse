@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: keycloak
+spec:
+  type: LoadBalancer
+  selector:
+    app: keycloak
+  ports:
+    - protocol: "TCP"
+      port: 7002        # port accessible within cluster
+      targetPort: 8080  # forward to pod (selector app:keycloak:8080)
+#      nodePort: 30002   # expose port to outer world
