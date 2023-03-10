@@ -1,6 +1,6 @@
 ARG DOCKER_PROXY=${DOCKER_PROXY}
 FROM ${DOCKER_PROXY}eclipse-temurin:11-jdk-alpine as builder
-VOLUME ~/.m2:/root/.m2
+VOLUME /root/.m2:/root/.m2
 WORKDIR /app
 
 COPY target/warehouse.jar .
@@ -12,5 +12,6 @@ ENV DB_PORT=${DB_PORT}
 ENV EPAGES_API_KEY=${EPAGES_API_KEY}
 ENV KEYCLOAK_HOST=${KEYCLOAK_HOST}
 ENV KEYCLOAK_PORT=${KEYCLOAK_PORT}
+ENV KEYCLOAK_REALM=${KEYCLOAK_REALM}
 
 ENTRYPOINT ["java","-jar","warehouse.jar"]
