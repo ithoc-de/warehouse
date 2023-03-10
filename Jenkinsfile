@@ -1,8 +1,13 @@
 pipeline {
+    agent {
+        docker {
+            image 'maven:3.9.0-eclipse-temurin-11'
+            args '-v /root/.m2:/root/.m2'
+        }
+    }
     environment {
         DOCKERHUB_CREDENTIALS = credentials('dockerhub')
     }
-    agent any
     stages {
         stage('Package application artifact') {
             steps {
@@ -16,17 +21,13 @@ pipeline {
         }
         stage('Build local image') {
             steps {
-                agent {
-                    docker {
-                        image 'maven:3.9.0-eclipse-temurin-11'
-                        args '-v /root/.m2:/root/.m2'
-                        build "olihock/warehouse" + ":$BRANCH_NAME" + "-$BUILD_NUMBER"
-                    }
+                docker {
+                    build "olihock/warehouse" + ":$BRANCH_NAME" + "-$BUILD_NUMBER"
                 }
                 sh 'docker images | grep warehouse'
             }
         }
-        stage('Login to artifactory') {
+        stage('Login to docker hub') {
             steps {
                 sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
             }
