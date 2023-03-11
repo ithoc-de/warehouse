@@ -4,7 +4,7 @@ metadata:
   name: keycloak
 spec:
   rules:
-    - host: localhost
+    - host: integ.dynv6.net
       http:
         paths:
           - path: /
