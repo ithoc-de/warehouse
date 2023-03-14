@@ -5,7 +5,7 @@ metadata:
 data:
   DB_HOST: db-warehouse
   DB_PORT: "7433"
-  EPAGES_API_KEY: ePages-API-Key
-  KEYCLOAK_HOST: db-keycloak
+  EPAGES_API_KEY: ylnUnbzYJLLBmhU6APZICaxqR4XGizcU
+  KEYCLOAK_HOST: keycloak
   KEYCLOAK_PORT: "7001"
-  KEYCLOAK_REALM: master
+  KEYCLOAK_REALM: integration
