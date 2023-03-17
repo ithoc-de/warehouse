@@ -11,6 +11,7 @@ public class AuthenticationController {
 
     @GetMapping("/")
     public String index() {
+        log.debug("/ -> index() -> index");
 
         return "index";
     }
@@ -18,6 +19,7 @@ public class AuthenticationController {
 
     @GetMapping("/home")
     public String home() {
+        log.debug("/home -> home() -> home");
 
         return "home";
     }
@@ -25,6 +27,7 @@ public class AuthenticationController {
 
     @GetMapping("/login")
     public String login() {
+        log.debug("/login -> login() -> home");
 
         return "home";
     }
@@ -32,6 +35,7 @@ public class AuthenticationController {
 
     @GetMapping(path = "/logout")
     public String logout(Model model) {
+        log.debug("/logout -> logout() -> index");
 
         return "index";
     }
